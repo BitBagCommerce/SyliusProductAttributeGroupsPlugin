@@ -1,7 +1,7 @@
 {
-    "name": "bitbag/skeleton-plugin",
+    "name": "bitbag/product-attribute-groups-plugin",
     "type": "sylius-plugin",
-    "description": "Skeleton for starting Sylius plugins.",
+    "description": "Plugin which adds possibility to create groups of product attributes",
     "license": "MIT",
     "require": {
         "php": "^7.4 || ^8.0",
@@ -48,8 +48,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Acme\\SyliusExamplePlugin\\": "src/",
-            "Tests\\Acme\\SyliusExamplePlugin\\": "tests/"
+            "BitBag\\SyliusProductAttributeGroupsPlugin\\": "src/",
+            "Tests\\BitBag\\SyliusProductAttributeGroupsPlugin\\": "tests/"
         }
     },
     "autoload-dev": {
