@@ -1,0 +1,7 @@
+sylius_resource:
+    resources:
+        bitbag.product_attribute_groups:
+            driver: doctrine/orm
+            classes:
+                model: BitBag\SyliusProductAttributeGroupsPlugin\Entity\ProductAttributeGroups
+                interface: BitBag\SyliusProductAttributeGroupsPlugin\Entity\ProductAttributeGroupsInterface

@@ -1,0 +1,3 @@
+imports:
+    - { resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/services.xml" }
+    - { resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/resources.yml" }
