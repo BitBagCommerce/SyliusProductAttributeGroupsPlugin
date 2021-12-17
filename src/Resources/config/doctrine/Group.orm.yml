@@ -1,0 +1,14 @@
+BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group:
+    type: mappedSuperclass
+    table: bitbag_product_attribute_groups
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            column: name
+            type: string
+            length: 255

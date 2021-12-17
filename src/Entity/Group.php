@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusProductAttributeGroupsPlugin\Entity;
 
-class ProductAttributeGroups implements ProductAttributeGroupsInterface
+class Group implements GroupInterface
 {
     protected ?int $id;
 

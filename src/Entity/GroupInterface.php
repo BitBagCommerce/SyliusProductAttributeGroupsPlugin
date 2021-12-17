@@ -12,7 +12,7 @@ namespace BitBag\SyliusProductAttributeGroupsPlugin\Entity;
 
 use Sylius\Component\Resource\Model\ResourceInterface;
 
-interface ProductAttributeGroupsInterface extends ResourceInterface
+interface GroupInterface extends ResourceInterface
 {
     public function getName(): ?string;
 
