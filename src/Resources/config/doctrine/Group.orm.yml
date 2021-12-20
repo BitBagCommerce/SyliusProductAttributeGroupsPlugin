@@ -12,3 +12,7 @@ BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group:
             column: name
             type: string
             length: 255
+    oneToMany:
+        attributes:
+            targetEntity: BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute
+            mappedBy: group

@@ -9,11 +9,22 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusProductAttributeGroupsPlugin\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 class Group implements GroupInterface
 {
     protected ?int $id;
 
     protected ?string $name;
+
+    /** @var Collection|Attribute[] */
+    protected Collection $attributes;
+
+    public function __construct()
+    {
+        $this->attributes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -28,5 +39,33 @@ class Group implements GroupInterface
     public function setName(?string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getAttributes(): Collection
+    {
+        return $this->attributes;
+    }
+
+    public function addAttribute(Attribute $attribute): self
+    {
+        if (!$this->attributes->contains($attribute)) {
+            $this->attributes[] = $attribute;
+            $attribute->setGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttribute(Attribute $attribute): self
+    {
+        if ($this->attributes->contains($attribute)) {
+            $this->attributes->removeElement($attribute);
+            // set the owning side to null (unless already changed)
+            if ($attribute->getGroup() === $this) {
+                $attribute->setGroup(null);
+            }
+        }
+
+        return $this;
     }
 }
