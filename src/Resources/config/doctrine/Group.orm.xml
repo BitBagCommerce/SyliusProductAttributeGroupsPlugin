@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <mapped-superclass name="BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group"
+                       table="bitbag_product_attribute_groups">
+        <id name="id" column="id" type="integer">
+            <generator/>
+        </id>
+
+        <field name="name" column="name" length="255"/>
+
+        <one-to-many field="attributes" target-entity="BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute"
+                     mapped-by="group">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+    </mapped-superclass>
+</doctrine-mapping>
