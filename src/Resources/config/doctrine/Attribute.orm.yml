@@ -9,6 +9,7 @@ BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute:
     manyToOne:
         group:
             targetEntity: BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group
+            inversedBy: attributes
             joinColumn:
                 name: group_id
                 referencedColumnName: id
