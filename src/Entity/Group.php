@@ -18,7 +18,7 @@ class Group implements GroupInterface
 
     protected ?string $name;
 
-    /** @var Collection|Attribute[] */
+    /** @var Collection|AttributeInterface[] */
     protected Collection $attributes;
 
     public function __construct()

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusProductAttributeGroupsPlugin\Entity;
 
-use Sylius\Component\Attribute\Model\Attribute;
+use Sylius\Component\Attribute\Model\AttributeInterface as SyliusAttributeInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
 interface AttributeInterface extends ResourceInterface
 {
-    public function getGroup(): ?Group;
+    public function getGroup(): ?GroupInterface;
 
-    public function setGroup(?Group $group): void;
+    public function setGroup(?GroupInterface $group): void;
 
-    public function getSyliusAttribute(): Attribute;
+    public function getSyliusAttribute(): SyliusAttributeInterface;
 
-    public function setSyliusAttribute(Attribute $syliusAttribute): void;
+    public function setSyliusAttribute(SyliusAttributeInterface $syliusAttribute): void;
 }

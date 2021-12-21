@@ -4,37 +4,37 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusProductAttributeGroupsPlugin\Entity;
 
-use Sylius\Component\Attribute\Model\Attribute as BaseAttribute;
+use Sylius\Component\Attribute\Model\AttributeInterface as SyliusAttributeInterface;
 
 class Attribute implements AttributeInterface
 {
     protected ?int $id;
 
-    protected ?Group $group;
+    protected ?GroupInterface $group;
 
-    protected BaseAttribute $syliusAttribute;
+    protected SyliusAttributeInterface $syliusAttribute;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getGroup(): ?Group
+    public function getGroup(): ?GroupInterface
     {
         return $this->group;
     }
 
-    public function setGroup(?Group $group): void
+    public function setGroup(?GroupInterface $group): void
     {
         $this->group = $group;
     }
 
-    public function getSyliusAttribute(): BaseAttribute
+    public function getSyliusAttribute(): SyliusAttributeInterface
     {
         return $this->syliusAttribute;
     }
 
-    public function setSyliusAttribute(BaseAttribute $syliusAttribute): void
+    public function setSyliusAttribute(SyliusAttributeInterface $syliusAttribute): void
     {
         $this->syliusAttribute = $syliusAttribute;
     }
