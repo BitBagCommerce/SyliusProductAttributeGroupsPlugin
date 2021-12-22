@@ -1,0 +1,5 @@
+bitbag_sylius_product_attribute_group_plugin:
+    ui:
+        groups: Attribute groups
+        name: Name
+        new_group: New attribute group
