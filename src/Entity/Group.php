@@ -46,19 +46,26 @@ class Group implements GroupInterface
         return $this->attributes;
     }
 
-    public function addAttribute(Attribute $attribute): void
+    public function addAttribute(Attribute $attribute): self
     {
         if (!$this->attributes->contains($attribute)) {
             $this->attributes[] = $attribute;
             $attribute->setGroup($this);
         }
+
+        return $this;
     }
 
-    public function removeAttribute(Attribute $attribute): void
+    public function removeAttribute(Attribute $attribute): self
     {
         if ($this->attributes->contains($attribute)) {
             $this->attributes->removeElement($attribute);
-			$attribute->setGroup(null);
+            // set the owning side to null (unless already changed)
+            if ($attribute->getGroup() === $this) {
+                $attribute->setGroup(null);
+            }
         }
+
+        return $this;
     }
 }
