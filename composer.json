@@ -1,7 +1,7 @@
 {
-    "name": "bitbag/skeleton-plugin",
+    "name": "bitbag/product-attribute-groups-plugin",
     "type": "sylius-plugin",
-    "description": "Skeleton for starting Sylius plugins.",
+    "description": "Plugin which adds possibility to create groups of product attributes",
     "license": "MIT",
     "require": {
         "php": "^7.4 || ^8.0",
@@ -10,6 +10,7 @@
     "require-dev": {
         "behat/behat": "^3.6.1",
         "behat/mink-selenium2-driver": "^1.4",
+        "bitbag/coding-standard": "^1.0",
         "dmore/behat-chrome-extension": "^1.3",
         "dmore/chrome-mink-driver": "^2.7",
         "friends-of-behat/mink": "^1.8",
@@ -38,6 +39,9 @@
         "symfony/webpack-encore-bundle": "^1.12",
         "vimeo/psalm": "4.7.1"
     },
+    "conflict": {
+        "doctrine/orm": "^2.10"
+    },
     "config": {
         "sort-packages": true
     },
@@ -48,8 +52,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Acme\\SyliusExamplePlugin\\": "src/",
-            "Tests\\Acme\\SyliusExamplePlugin\\": "tests/"
+            "BitBag\\SyliusProductAttributeGroupsPlugin\\": "src/",
+            "Tests\\BitBag\\SyliusProductAttributeGroupsPlugin\\": "tests/"
         }
     },
     "autoload-dev": {
