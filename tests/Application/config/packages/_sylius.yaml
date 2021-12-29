@@ -26,6 +26,11 @@ sylius_grid:
                 name:
                     type: string
                     label: bitbag_sylius_product_attribute_group_plugin.ui.name
+                attributes:
+                    type: twig
+                    label: bitbag_sylius_product_attribute_group_plugin.ui.attributes
+                    options:
+                        template: "@BitBagSyliusProductAttributeGroupsPlugin/Grid/Field/attributes.html.twig"
             actions:
                 main:
                     create:

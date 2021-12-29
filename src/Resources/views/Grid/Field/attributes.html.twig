@@ -1,0 +1,7 @@
+{% if data is empty %}
+    <span>{{ 'bitbag_sylius_product_attribute_group_plugin.ui.no_attributes'|trans }}</span>
+{% else %}
+    {% for attribute in data %}
+        {{ attribute|join(', ') }}
+    {% endfor %}
+{% endif %}
