@@ -5,5 +5,15 @@
         <service id="bit_bag.sylius_product_attribute_groups_plugin.menu.attribute_group_menu_listener" class="BitBag\SyliusProductAttributeGroupsPlugin\Menu\AttributeGroupMenuListener" public="false">
             <tag name="kernel.event_listener" event="sylius.menu.admin.main" method="groupList"/>
         </service>
+        <service id="bit_bag.sylius_product_attribute_groups_plugin.form.type.group_type" class="BitBag\SyliusProductAttributeGroupsPlugin\Form\Type\GroupType" public="false">
+            <argument type="service" id="bit_bag.sylius_product_attribute_groups_plugin.factory.group"/>
+            <argument type="service" id="bit_bag.sylius_product_attribute_groups_plugin.factory.attribute"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <tag name="form.type"/>
+        </service>
+        <service id="bit_bag.sylius_product_attribute_groups_plugin.factory.attribute"
+                 class="BitBag\SyliusProductAttributeGroupsPlugin\Factory\AttributeFactory" public="false"/>
+        <service id="bit_bag.sylius_product_attribute_groups_plugin.factory.group"
+                 class="BitBag\SyliusProductAttributeGroupsPlugin\Factory\GroupFactory" public="false"/>
     </services>
 </container>
