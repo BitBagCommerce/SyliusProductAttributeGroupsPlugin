@@ -6,3 +6,8 @@ sylius_resource:
                 model: BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group
                 interface: BitBag\SyliusProductAttributeGroupsPlugin\Entity\GroupInterface
                 form: BitBag\SyliusProductAttributeGroupsPlugin\Form\Type\GroupType
+        bitbag_sylius_product_attribute_group_plugin.attribute:
+            driver: doctrine/orm
+            classes:
+                model: BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute
+                interface: BitBag\SyliusProductAttributeGroupsPlugin\Entity\AttributeInterface
