@@ -14,7 +14,6 @@
         <one-to-one field="syliusAttribute" target-entity="Sylius\Component\Attribute\Model\AttributeInterface">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
             <join-column name="sylius_attribute_id"/>
         </one-to-one>
