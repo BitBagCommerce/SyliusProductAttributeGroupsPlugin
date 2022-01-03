@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusProductAttributeGroupsPlugin\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
 interface GroupInterface extends ResourceInterface
@@ -17,4 +18,10 @@ interface GroupInterface extends ResourceInterface
     public function getName(): ?string;
 
     public function setName(?string $name): void;
+
+    public function getAttributes(): Collection;
+
+    public function addAttribute(AttributeInterface $attribute): void;
+
+    public function removeAttribute(AttributeInterface $attribute): void;
 }
