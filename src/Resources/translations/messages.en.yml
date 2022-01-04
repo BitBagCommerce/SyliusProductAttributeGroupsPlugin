@@ -3,5 +3,6 @@ bitbag_sylius_product_attribute_group_plugin:
         groups: Attribute groups
         name: Name
         new_group: New attribute group
+        edit_group: Edit attribute group
         attributes: Attributes
         no_attributes: No attributes asigned
