@@ -12,9 +12,8 @@ namespace BitBag\SyliusProductAttributeGroupsPlugin\Form\Type;
 
 use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group;
 use BitBag\SyliusProductAttributeGroupsPlugin\Form\DataTransformer\AttributeTransformer;
+use Sylius\Bundle\ProductBundle\Form\Type\ProductAttributeChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
-use Sylius\Component\Product\Model\ProductAttribute;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -29,8 +28,7 @@ class GroupType extends AbstractResourceType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('attributes', EntityType::class, [
-                'class' => ProductAttribute::class,
+            ->add('attributes', ProductAttributeChoiceType::class, [
                 'multiple' => true,
             ]);
 
