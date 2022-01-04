@@ -9,11 +9,14 @@
             <argument type="service" id="bit_bag.sylius_product_attribute_groups_plugin.factory.group"/>
             <argument type="service" id="bit_bag.sylius_product_attribute_groups_plugin.factory.attribute"/>
             <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="bit_bag.sylius_product_attribute_groups_plugin.form.data_transformer.attribute_transformer"/>
             <tag name="form.type"/>
         </service>
         <service id="bit_bag.sylius_product_attribute_groups_plugin.factory.attribute"
                  class="BitBag\SyliusProductAttributeGroupsPlugin\Factory\AttributeFactory" public="false"/>
         <service id="bit_bag.sylius_product_attribute_groups_plugin.factory.group"
                  class="BitBag\SyliusProductAttributeGroupsPlugin\Factory\GroupFactory" public="false"/>
+        <service id="bit_bag.sylius_product_attribute_groups_plugin.form.data_transformer.attribute_transformer"
+                 class="BitBag\SyliusProductAttributeGroupsPlugin\Form\DataTransformer\AttributeTransformer" public="false"/>
     </services>
 </container>
