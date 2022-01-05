@@ -19,19 +19,24 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class GroupType extends AbstractResourceType
 {
-    public function __construct()
+    private AttributeTransformer $transformer;
+
+    public function __construct(AttributeTransformer $transformer)
     {
         parent::__construct(Group::class);
+        $this->transformer = $transformer;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, [
+                'attr' => ['autocomplete' => 'off'],
+            ])
             ->add('attributes', ProductAttributeChoiceType::class, [
                 'multiple' => true,
             ]);
 
-        $builder->get('attributes')->addModelTransformer(new AttributeTransformer());
+        $builder->get('attributes')->addModelTransformer($this->transformer);
     }
 }

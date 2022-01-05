@@ -6,10 +6,18 @@ namespace BitBag\SyliusProductAttributeGroupsPlugin\Form\DataTransformer;
 
 use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute;
 use Doctrine\Common\Collections\ArrayCollection;
+use Sylius\Component\Resource\Factory\FactoryInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 
 class AttributeTransformer implements DataTransformerInterface
 {
+    private FactoryInterface $factory;
+
+    public function __construct(FactoryInterface $factory)
+    {
+        $this->factory = $factory;
+    }
+
     public function transform($value): ArrayCollection
     {
         $collection = new ArrayCollection();
@@ -27,7 +35,7 @@ class AttributeTransformer implements DataTransformerInterface
         $collection = new ArrayCollection();
 
         foreach ($value as $attribute) {
-            $pluginAttribute = new Attribute();
+            $pluginAttribute = $this->factory->createNew();
             $pluginAttribute->setSyliusAttribute($attribute);
             $collection->add($pluginAttribute);
         }
