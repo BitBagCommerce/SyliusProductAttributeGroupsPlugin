@@ -20,6 +20,9 @@
         </service>
         <service id="bitbag_sylius_product_attribute_groups_plugin.form.extension.product_attribute_type_extension"
                  class="BitBag\SyliusProductAttributeGroupsPlugin\Form\Extension\ProductAttributeTypeExtension">
+            <argument type="service" id="bitbag_sylius_product_attribute_group_plugin.repository.attribute"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="bitbag_sylius_product_attribute_group_plugin.factory.attribute"/>
             <tag name="form.type_extension"
                  extended_type="Sylius\Bundle\ProductBundle\Form\Type\ProductAttributeType"/>
         </service>
