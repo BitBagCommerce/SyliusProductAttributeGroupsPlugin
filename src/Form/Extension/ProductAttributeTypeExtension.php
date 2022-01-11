@@ -6,7 +6,6 @@ namespace BitBag\SyliusProductAttributeGroupsPlugin\Form\Extension;
 
 use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute;
 use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group;
-use BitBag\SyliusProductAttributeGroupsPlugin\Form\DataTransformer\GroupTransformer;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductAttributeType;
 use Sylius\Component\Resource\Factory\FactoryInterface;
@@ -60,9 +59,9 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
 				return;
 			}
 
-			$previousGroup = $this->repository->findOneBy(['syliusAttribute' => $event->getData()])->getGroup();
+			$previousGroup = $this->repository->findOneBy(['syliusAttribute' => $event->getData()]);
 
-			if ($previousGroup !== $group) {
+			if (($previousGroup !== $group && null !== $previousGroup) || null === $group) {
 				$this->entityManager->remove($previousGroup);
 			}
 
