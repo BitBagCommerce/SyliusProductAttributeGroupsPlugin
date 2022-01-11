@@ -35,7 +35,7 @@ class GroupType extends AbstractResourceType
             ])
             ->add('attributes', ProductAttributeChoiceType::class, [
                 'multiple' => true,
-				'required' => false,
+                'required' => false,
             ]);
 
         $builder->get('attributes')->addModelTransformer($this->transformer);
