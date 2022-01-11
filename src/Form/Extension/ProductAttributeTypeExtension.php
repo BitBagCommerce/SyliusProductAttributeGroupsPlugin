@@ -18,61 +18,68 @@ use Symfony\Component\Form\FormEvents;
 
 final class ProductAttributeTypeExtension extends AbstractTypeExtension
 {
-	private RepositoryInterface $repository;
-	private EntityManagerInterface $entityManager;
-	private FactoryInterface $factory;
+    private RepositoryInterface $repository;
 
-	public function __construct(RepositoryInterface $repository, EntityManagerInterface $entityManager, FactoryInterface $factory){
-		$this->repository = $repository;
-		$this->entityManager = $entityManager;
-		$this->factory = $factory;
-	}
+    private EntityManagerInterface $entityManager;
 
-	public function buildForm(FormBuilderInterface $builder, array $options): void
+    private FactoryInterface $factory;
+
+    public function __construct(
+        RepositoryInterface $repository,
+        EntityManagerInterface $entityManager,
+        FactoryInterface $factory
+    )
     {
-		$builder->add('group', EntityType::class, [
+        $this->repository = $repository;
+        $this->entityManager = $entityManager;
+        $this->factory = $factory;
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder->add('group', EntityType::class, [
             'class' => Group::class,
-			'choice_label' => 'name',
-			'mapped' => false,
-			'required' => false,
-			'placeholder' => '',
+            'choice_label' => 'name',
+            'mapped' => false,
+            'required' => false,
+            'placeholder' => '',
         ]);
 
-		$builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event){
-			$form = $event->getForm();
-			/** @var Attribute $attribute */
-			$attribute = $this->repository->findOneBy(['syliusAttribute' => $event->getData()]);
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+            $form = $event->getForm();
+            /** @var Attribute $attribute */
+            $attribute = $this->repository->findOneBy(['syliusAttribute' => $event->getData()]);
 
-			if (!$attribute) {
-				return;
-			}
+            if (!$attribute) {
+                return;
+            }
 
-			$group = $form->get('group');
-			$group->setData($attribute->getGroup());
-		});
+            $group = $form->get('group');
+            $group->setData($attribute->getGroup());
+        });
 
-		$builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-			$form = $event->getForm();
-			$group = $form->get('group')->getData();
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            $form = $event->getForm();
+            $group = $form->get('group')->getData();
 
-			if (!$form->isValid()) {
-				return;
-			}
+            if (!$form->isValid()) {
+                return;
+            }
 
-			$previousGroup = $this->repository->findOneBy(['syliusAttribute' => $event->getData()]);
+            $previousGroup = $this->repository->findOneBy(['syliusAttribute' => $event->getData()]);
 
-			if (($previousGroup !== $group && null !== $previousGroup) || null === $group) {
-				$this->entityManager->remove($previousGroup);
-			}
+            if (($previousGroup !== $group && null !== $previousGroup) || null === $group) {
+                $this->entityManager->remove($previousGroup);
+            }
 
-			/** @var Attribute $attribute */
-			$attribute = $this->factory->createNew();
-			$attribute->setGroup($group);
-			$attribute->setSyliusAttribute($event->getData());
+            /** @var Attribute $attribute */
+            $attribute = $this->factory->createNew();
+            $attribute->setGroup($group);
+            $attribute->setSyliusAttribute($event->getData());
 
-			$this->entityManager->persist($attribute);
-			$this->entityManager->flush();
-		});
+            $this->entityManager->persist($attribute);
+            $this->entityManager->flush();
+        });
     }
 
     public static function getExtendedTypes(): iterable
