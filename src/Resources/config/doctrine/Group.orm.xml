@@ -9,7 +9,7 @@
         <field name="name" column="name" length="255"/>
 
         <one-to-many field="attributes" target-entity="BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute"
-                     mapped-by="group">
+                     mapped-by="group" orphan-removal="true">
             <cascade>
                 <cascade-all/>
             </cascade>

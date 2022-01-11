@@ -46,7 +46,7 @@ class Group implements GroupInterface
         return $this->attributes;
     }
 
-    public function addAttribute(Attribute $attribute): void
+    public function addAttribute(AttributeInterface $attribute): void
     {
         if (!$this->attributes->contains($attribute)) {
             $this->attributes[] = $attribute;
@@ -54,11 +54,11 @@ class Group implements GroupInterface
         }
     }
 
-    public function removeAttribute(Attribute $attribute): void
+    public function removeAttribute(AttributeInterface $attribute): void
     {
         if ($this->attributes->contains($attribute)) {
             $this->attributes->removeElement($attribute);
-			$attribute->setGroup(null);
+            $attribute->setGroup(null);
         }
     }
 }
