@@ -35,7 +35,9 @@ class GroupType extends AbstractResourceType
             ])
             ->add('attributes', ProductAttributeChoiceType::class, [
                 'multiple' => true,
-                'required' => false,
+                'attr' => [
+                    'class' => 'fluid search selection multiple',
+                ],
             ]);
 
         $builder->get('attributes')->addModelTransformer($this->transformer);
