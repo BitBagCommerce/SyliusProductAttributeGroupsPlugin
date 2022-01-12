@@ -28,8 +28,7 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
         RepositoryInterface $repository,
         EntityManagerInterface $entityManager,
         FactoryInterface $factory
-    )
-    {
+    ) {
         $this->repository = $repository;
         $this->entityManager = $entityManager;
         $this->factory = $factory;
