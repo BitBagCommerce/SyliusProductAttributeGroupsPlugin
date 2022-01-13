@@ -6,7 +6,6 @@ namespace BitBag\SyliusProductAttributeGroupsPlugin\Form\Extension;
 
 use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute;
 use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group;
-use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductAttributeType;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
@@ -18,20 +17,16 @@ use Symfony\Component\Form\FormEvents;
 
 final class ProductAttributeTypeExtension extends AbstractTypeExtension
 {
-    private RepositoryInterface $repository;
+    private RepositoryInterface $attributeRepository;
 
-    private EntityManagerInterface $entityManager;
-
-    private FactoryInterface $factory;
+    private FactoryInterface $attributeFactory;
 
     public function __construct(
-        RepositoryInterface $repository,
-        EntityManagerInterface $entityManager,
-        FactoryInterface $factory
+        RepositoryInterface $attributeRepository,
+        FactoryInterface $attributeFactory
     ) {
-        $this->repository = $repository;
-        $this->entityManager = $entityManager;
-        $this->factory = $factory;
+        $this->attributeRepository = $attributeRepository;
+        $this->attributeFactory = $attributeFactory;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -47,7 +42,7 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
         $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
             $form = $event->getForm();
             /** @var Attribute $attribute */
-            $attribute = $this->repository->findOneBy(['syliusAttribute' => $event->getData()]);
+            $attribute = $this->attributeRepository->findOneBy(['syliusAttribute' => $event->getData()]);
 
             if (!$attribute) {
                 return;
@@ -65,19 +60,18 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
                 return;
             }
 
-            $previousGroup = $this->repository->findOneBy(['syliusAttribute' => $event->getData()]);
+            $previousGroup = $this->attributeRepository->findOneBy(['syliusAttribute' => $event->getData()]);
 
             if (($previousGroup !== $group && null !== $previousGroup) || null === $group) {
-                $this->entityManager->remove($previousGroup);
+                $this->attributeRepository->remove($previousGroup);
             }
 
             /** @var Attribute $attribute */
-            $attribute = $this->factory->createNew();
+            $attribute = $this->attributeFactory->createNew();
             $attribute->setGroup($group);
             $attribute->setSyliusAttribute($event->getData());
 
-            $this->entityManager->persist($attribute);
-            $this->entityManager->flush();
+            $this->attributeRepository->add($attribute);
         });
     }
 
