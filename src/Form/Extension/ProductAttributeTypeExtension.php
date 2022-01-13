@@ -6,8 +6,8 @@ namespace BitBag\SyliusProductAttributeGroupsPlugin\Form\Extension;
 
 use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute;
 use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group;
+use BitBag\SyliusProductAttributeGroupsPlugin\Factory\AttributeFactoryInterface;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductAttributeType;
-use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractTypeExtension;
@@ -19,11 +19,11 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
 {
     private RepositoryInterface $attributeRepository;
 
-    private FactoryInterface $attributeFactory;
+    private AttributeFactoryInterface $attributeFactory;
 
     public function __construct(
         RepositoryInterface $attributeRepository,
-        FactoryInterface $attributeFactory
+        AttributeFactoryInterface $attributeFactory
     ) {
         $this->attributeRepository = $attributeRepository;
         $this->attributeFactory = $attributeFactory;
@@ -54,6 +54,7 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
             $form = $event->getForm();
+            $syliusAttribute = $event->getData();
             $group = $form->get('group')->getData();
 
             if (!$form->isValid()) {
@@ -66,11 +67,11 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
                 $this->attributeRepository->remove($previousGroup);
             }
 
-            /** @var Attribute $attribute */
-            $attribute = $this->attributeFactory->createNew();
-            $attribute->setGroup($group);
-            $attribute->setSyliusAttribute($event->getData());
+            if (null === $group) {
+                return;
+            }
 
+            $attribute = $this->attributeFactory->createWithGroup($group, $syliusAttribute);
             $this->attributeRepository->add($attribute);
         });
     }
