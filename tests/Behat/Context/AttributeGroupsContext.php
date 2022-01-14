@@ -11,46 +11,71 @@ declare(strict_types=1);
 namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context;
 
 use Behat\Behat\Context\Context;
-use Behat\Behat\Tester\Exception\PendingException;
+use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
+use Sylius\Behat\NotificationType;
+use Sylius\Behat\Service\NotificationChecker;
+use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\CreateGroupPageInterface;
 
-final class AttributeGroupsContext implements Context {
-	private CreateGroupPageInterface $createPage;
+final class AttributeGroupsContext implements Context
+{
+    private CreateGroupPageInterface $createPage;
 
-	public function __construct(CreateGroupPageInterface $createPage) {
-		$this->createPage = $createPage;
-	}
+    private CurrentPageResolverInterface $currentPageResolver;
 
-	/**
-	 * @When I want to add a new attribute group
-	 */
-	public function iWantToAddANewAttributeGroup(): void
-	{
-		$this->createPage->open();
-	}
+    private NotificationChecker $notificationChecker;
 
-	/**
-	 * @When I set its name to :arg1
-	 */
-	public function iSetItsNameTo($arg1): void
-	{
-		throw new PendingException();
-	}
+    public function __construct(
+        CreateGroupPageInterface $createPage,
+        CurrentPageResolverInterface $currentPageResolver,
+        NotificationChecker $notificationChecker
+    )
+    {
+        $this->createPage = $createPage;
+        $this->currentPageResolver = $currentPageResolver;
+        $this->notificationChecker = $notificationChecker;
+    }
 
-	/**
-	 * @When I add it
-	 */
-	public function iAddIt(): void
-	{
-		throw new PendingException();
-	}
+    /**
+     * @When I want to add a new attribute group
+     */
+    public function iWantToAddANewAttributeGroup(): void
+    {
+        $this->createPage->open();
+    }
 
+    /**
+     * @When I set its name to :group
+     */
+    public function iSetItsNameTo(string $group): void
+    {
+        $this->resolveCurrentPage()->fillName($group);
+    }
 
-	/**
-	 * @Then the group :arg1 should appear in the store
-	 */
-	public function theGroupShouldAppearInTheStore(string $group): void
-	{
-		throw new PendingException();
-	}
+    /**
+     * @When I add it
+     */
+    public function iAddIt(): void
+    {
+        $this->createPage->create();
+    }
+
+    /**
+     * @Then I should be notified that the group has been created
+     */
+    public function theGroupShouldAppearInTheStore(): void
+    {
+        $this->notificationChecker->checkNotification(
+			'Group has been successfully created.',
+			NotificationType::success()
+		);
+    }
+
+    /** @return CreateGroupPageInterface */
+    private function resolveCurrentPage(): SymfonyPageInterface
+    {
+        return $this->currentPageResolver->getCurrentPageWithForm([
+            $this->createPage,
+        ]);
+    }
 }

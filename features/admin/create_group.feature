@@ -12,4 +12,4 @@ Feature: Create attribute group
     When I want to add a new attribute group
     And I set its name to "Custom Attribute Group"
     And I add it
-    Then the group "Custom Attribute Group" should appear in the store
+    Then I should be notified that the group has been created

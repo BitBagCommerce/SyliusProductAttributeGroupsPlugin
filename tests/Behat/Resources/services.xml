@@ -6,11 +6,13 @@
         <service id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.context.attribute_groups_context"
                  class="Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context\AttributeGroupsContext">
             <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.create"/>
+            <argument type="service" id="sylius.behat.current_page_resolver"/>
+            <argument type="service" id="sylius.behat.notification_checker"/>
         </service>
         <service id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.create"
                  class="Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\CreateGroupPage"
                  parent="sylius.behat.page.admin.crud.create">
-            <argument type="service" id="bit`bag_sylius_product_attribute_groups_plugin."/>
+            <argument id="behat.mink.default_session"/>
         </service>
     </services>
 </container>
