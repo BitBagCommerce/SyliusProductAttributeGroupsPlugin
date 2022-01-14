@@ -29,8 +29,7 @@ final class AttributeGroupsContext implements Context
         CreateGroupPageInterface $createPage,
         CurrentPageResolverInterface $currentPageResolver,
         NotificationChecker $notificationChecker
-    )
-    {
+    ) {
         $this->createPage = $createPage;
         $this->currentPageResolver = $currentPageResolver;
         $this->notificationChecker = $notificationChecker;
@@ -66,9 +65,9 @@ final class AttributeGroupsContext implements Context
     public function theGroupShouldAppearInTheStore(): void
     {
         $this->notificationChecker->checkNotification(
-			'Group has been successfully created.',
-			NotificationType::success()
-		);
+            'Group has been successfully created.',
+            NotificationType::success()
+        );
     }
 
     /** @return CreateGroupPageInterface */

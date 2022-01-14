@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <defaults public="true" />
+        <defaults public="true"/>
         <service id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.context.attribute_groups_context"
                  class="Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context\AttributeGroupsContext">
             <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.create"/>
@@ -11,7 +12,8 @@
         </service>
         <service id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.create"
                  class="Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\CreateGroupPage"
-                 parent="sylius.behat.page.admin.crud.create">
+                 parent="sylius.behat.page.admin.crud.create"
+                 public="true">
             <argument id="behat.mink.default_session"/>
         </service>
     </services>
