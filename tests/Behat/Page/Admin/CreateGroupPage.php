@@ -12,9 +12,4 @@ class CreateGroupPage extends CreatePage implements CreateGroupPageInterface
     {
         $this->getDocument()->fillField('Name', $name);
     }
-
-    public function getRouteName(): string
-    {
-        return 'bitbag_sylius_product_attribute_group_plugin_admin_group_create';
-    }
 }

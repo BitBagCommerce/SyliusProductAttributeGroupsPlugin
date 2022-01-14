@@ -11,27 +11,28 @@ declare(strict_types=1);
 namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context;
 
 use Behat\Behat\Context\Context;
-use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationChecker;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\CreateGroupPageInterface;
+use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\IndexGroupPageInterface;
+use Webmozart\Assert\Assert;
 
 final class AttributeGroupsContext implements Context
 {
     private CreateGroupPageInterface $createPage;
 
-    private CurrentPageResolverInterface $currentPageResolver;
-
     private NotificationChecker $notificationChecker;
+
+    private IndexGroupPageInterface $indexPage;
 
     public function __construct(
         CreateGroupPageInterface $createPage,
-        CurrentPageResolverInterface $currentPageResolver,
+        IndexGroupPageInterface $indexPage,
         NotificationChecker $notificationChecker
     ) {
         $this->createPage = $createPage;
-        $this->currentPageResolver = $currentPageResolver;
+        $this->indexPage = $indexPage;
         $this->notificationChecker = $notificationChecker;
     }
 
@@ -48,7 +49,7 @@ final class AttributeGroupsContext implements Context
      */
     public function iSetItsNameTo(string $group): void
     {
-        $this->resolveCurrentPage()->fillName($group);
+        $this->createPage->fillName($group);
     }
 
     /**
@@ -62,7 +63,7 @@ final class AttributeGroupsContext implements Context
     /**
      * @Then I should be notified that the group has been created
      */
-    public function theGroupShouldAppearInTheStore(): void
+    public function iShouldBeNotifiedThatTheGroupHasBeenCreated(): void
     {
         $this->notificationChecker->checkNotification(
             'Group has been successfully created.',
@@ -70,11 +71,18 @@ final class AttributeGroupsContext implements Context
         );
     }
 
-    /** @return CreateGroupPageInterface */
-    private function resolveCurrentPage(): SymfonyPageInterface
+    /**
+     * @Then the group :group should appear in the store
+     */
+    public function theGroupShouldAppearInTheStore(string $group): void
     {
-        return $this->currentPageResolver->getCurrentPageWithForm([
-            $this->createPage,
-        ]);
+        Assert::true(
+            $this->indexPage->isGroupDisplayed($group),
+            'Group is not displayed on index page.'
+        );
+        Assert::true(
+            $this->indexPage->isSingleResourceOnPage(['name' => $group]),
+            'There should exist only one group but it does not.'
+        );
     }
 }

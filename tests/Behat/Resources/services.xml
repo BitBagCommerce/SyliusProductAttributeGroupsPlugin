@@ -7,14 +7,20 @@
         <service id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.context.attribute_groups_context"
                  class="Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context\AttributeGroupsContext">
             <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.create"/>
-            <argument type="service" id="sylius.behat.current_page_resolver"/>
+            <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.index"/>
             <argument type="service" id="sylius.behat.notification_checker"/>
         </service>
         <service id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.create"
                  class="Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\CreateGroupPage"
                  parent="sylius.behat.page.admin.crud.create"
                  public="true">
-            <argument id="behat.mink.default_session"/>
+            <argument>bitbag_sylius_product_attribute_group_plugin_admin_group_create</argument>
+        </service>
+        <service id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.index"
+                 class="Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\IndexGroupPage"
+                 parent="sylius.behat.page.admin.crud.index"
+                 public="true">
+            <argument>bitbag_sylius_product_attribute_group_plugin_admin_group_index</argument>
         </service>
     </services>
 </container>

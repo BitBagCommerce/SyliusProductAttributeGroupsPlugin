@@ -13,3 +13,4 @@ Feature: Create attribute group
     And I set its name to "Custom Attribute Group"
     And I add it
     Then I should be notified that the group has been created
+    And the group "Custom Attribute Group" should appear in the store
