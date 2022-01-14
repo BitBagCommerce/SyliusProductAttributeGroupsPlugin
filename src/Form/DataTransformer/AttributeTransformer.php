@@ -35,6 +35,7 @@ class AttributeTransformer implements DataTransformerInterface
         $collection = new ArrayCollection();
 
         foreach ($value as $attribute) {
+            /** @var Attribute $pluginAttribute */
             $pluginAttribute = $this->factory->createNew();
             $pluginAttribute->setSyliusAttribute($attribute);
             $collection->add($pluginAttribute);

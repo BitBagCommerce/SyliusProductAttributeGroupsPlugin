@@ -39,12 +39,12 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
             'placeholder' => '',
         ]);
 
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event): void {
             $form = $event->getForm();
-            /** @var Attribute $attribute */
+            /** @var Attribute|null $attribute */
             $attribute = $this->attributeRepository->findOneBy(['syliusAttribute' => $event->getData()]);
 
-            if (!$attribute) {
+            if (null === $attribute) {
                 return;
             }
 
@@ -52,7 +52,7 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
             $group->setData($attribute->getGroup());
         });
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event): void {
             $form = $event->getForm();
             $syliusAttribute = $event->getData();
             $group = $form->get('group')->getData();
