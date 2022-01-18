@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin;
+namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Group;
 
 use Sylius\Behat\Page\Admin\Crud\CreatePage;
 

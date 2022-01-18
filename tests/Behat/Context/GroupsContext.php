@@ -13,12 +13,11 @@ namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context;
 use Behat\Behat\Context\Context;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationChecker;
-use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
-use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\CreateGroupPageInterface;
-use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\IndexGroupPageInterface;
+use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Group\CreateGroupPageInterface;
+use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Group\IndexGroupPageInterface;
 use Webmozart\Assert\Assert;
 
-final class AttributeGroupsContext implements Context
+final class GroupsContext implements Context
 {
     private CreateGroupPageInterface $createPage;
 
