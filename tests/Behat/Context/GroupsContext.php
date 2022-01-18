@@ -36,6 +36,16 @@ final class GroupsContext implements Context
     }
 
     /**
+     * @Given There is created group with name :group
+     */
+    public function thereIsCreatedGroupWithName(string $group): void
+    {
+        $this->iWantToAddANewAttributeGroup();
+        $this->iSetItsNameTo($group);
+        $this->iAddIt();
+    }
+
+    /**
      * @When I want to add a new attribute group
      */
     public function iWantToAddANewAttributeGroup(): void

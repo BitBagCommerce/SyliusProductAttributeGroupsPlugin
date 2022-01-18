@@ -4,6 +4,8 @@ default:
             contexts:
                 - sylius.behat.context.hook.doctrine_orm
                 - sylius.behat.context.setup.admin_security
+                - sylius.behat.context.setup.channel
                 - tests.bit_bag.sylius_product_attribute_groups_plugin.behat.context.groups_context
+                - tests.bit_bag.sylius_product_attribute_groups_plugin.behat.context.attribute_context
             filters:
                 tags: "@product_attribute_group_plugin && @ui"

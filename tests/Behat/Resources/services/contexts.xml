@@ -10,5 +10,10 @@
             <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.group.index"/>
             <argument type="service" id="sylius.behat.notification_checker"/>
         </service>
+        <service id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.context.attribute_context"
+                 class="Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context\AttributeContext">
+            <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.attribute.create"/>
+            <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.attribute.update"/>
+        </service>
     </services>
 </container>
