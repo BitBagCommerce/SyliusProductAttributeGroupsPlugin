@@ -10,6 +10,6 @@ class CreateAttributePage extends CreatePage implements CreateAttributePageInter
 {
     public function assignGroup(string $group): void
     {
-        $this->getDocument()->findField('sylius_product_attribute_group')->selectOption($group);
+        $this->getDocument()->selectFieldOption('sylius_product_attribute_group', $group);
     }
 }

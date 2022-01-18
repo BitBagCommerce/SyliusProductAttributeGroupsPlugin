@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context;
 
 use Behat\Behat\Context\Context;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Attribute\CreateAttributePageInterface;
 use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Attribute\UpdateAttributePageInterface;
 use Webmozart\Assert\Assert;
@@ -15,18 +16,59 @@ class AttributeContext implements Context
 
     private UpdateAttributePageInterface $updatePage;
 
-    public function __construct(CreateAttributePageInterface $createPage, UpdateAttributePageInterface $updatePage)
+    private RepositoryInterface $attributeRepository;
+
+    public function __construct(
+        CreateAttributePageInterface $createPage,
+        UpdateAttributePageInterface $updatePage,
+        RepositoryInterface $attributeRepository
+    )
     {
         $this->createPage = $createPage;
         $this->updatePage = $updatePage;
+        $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @When I want to create a new :type product attribute
+     * @Given there is created text attribute :attribute with assigned group :group with code :code
      */
-    public function iWantToCreateANewTextProductAttribute(string $type): void
+    public function thereIsCreatedAttributeWithAssignedGroup(
+        string $attribute,
+        string $group,
+        string $code
+    )
     {
-        $this->createPage->open(['type' => $type]);
+        $this->createPage->open(['type' => 'text']);
+        $this->createPage->nameIt($attribute, 'en_US');
+        $this->createPage->specifyCode($code);
+        $this->createPage->assignGroup($group);
+        $this->createPage->create();
+    }
+
+    /**
+     * @When I want to create a new text product attribute
+     */
+    public function iWantToCreateANewTextProductAttribute(): void
+    {
+        $this->createPage->open(['type' => 'text']);
+    }
+
+    /**
+     * @When I want to edit attribute with code :code
+     */
+    public function iWantToEditAttributeWithCode(string $code)
+    {
+        $id = $this->attributeRepository->findOneBy(['code' => $code])->getId();
+
+        $this->updatePage->open(['id' => $id]);
+    }
+
+    /**
+     * @When I save my changes
+     */
+    public function iSaveMyChanges()
+    {
+        $this->updatePage->saveChanges();
     }
 
     /**

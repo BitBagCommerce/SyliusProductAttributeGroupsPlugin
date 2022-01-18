@@ -37,6 +37,7 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
             'mapped' => false,
             'required' => false,
             'placeholder' => '',
+            'choice_value' => fn (?Group $group) => $group ? $group->getName() : null,
         ]);
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event): void {

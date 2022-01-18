@@ -10,6 +10,6 @@ class UpdateAttributePage extends UpdatePage implements UpdateAttributePageInter
 {
     public function isGroupAssigned(string $group): bool
     {
-		return $group === $this->getDocument()->findField('sylius_product_attribute_group')->getText();
+        return $group === $this->getDocument()->findField('sylius_product_attribute_group')->getValue();
     }
 }
