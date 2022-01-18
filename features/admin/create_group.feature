@@ -1,4 +1,4 @@
-@create_group
+@product_attribute_group_plugin
 Feature: Create attribute group
   In order to manage product attributes
   As an Administrator
