@@ -10,5 +10,5 @@ interface IndexGroupPageInterface extends IndexPageInterface
 {
     public function isGroupDisplayed(string $group): bool;
 
-	public function areAttributesVisible(string $group, array $attributes): bool;
+    public function areAttributesVisible(string $group, array $attributes): bool;
 }

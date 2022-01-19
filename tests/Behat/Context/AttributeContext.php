@@ -30,7 +30,7 @@ final class AttributeContext implements Context
 
     /**
      * @Given there is created text attribute :attribute with code :code and assigned group :group
-	 * @Given there is created text attribute :attribute with code :code
+     * @Given there is created text attribute :attribute with code :code
      */
     public function thereIsCreatedAttributeWithAssignedGroupAndCode(
         string $attribute,
@@ -41,9 +41,9 @@ final class AttributeContext implements Context
         $this->createPage->nameIt($attribute, 'en_US');
         $this->createPage->specifyCode($code);
 
-		if (null !== $group) {
-			$this->createPage->assignGroup($group);
-		}
+        if (null !== $group) {
+            $this->createPage->assignGroup($group);
+        }
 
         $this->createPage->create();
     }

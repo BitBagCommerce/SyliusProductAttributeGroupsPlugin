@@ -77,7 +77,7 @@ final class GroupsContext implements Context
     {
         $codes = array_merge([], ...$table->getRows());
 
-		$this->createPage->assignAttributes($codes);
+        $this->createPage->assignAttributes($codes);
     }
 
     /**
@@ -106,14 +106,15 @@ final class GroupsContext implements Context
         );
     }
 
-	/**
-	 * @Given these attributes should be visible next to the group :group:
-	 */
-	public function thisAttributesShouldBeVisibleNextToTheGroup(string $group, TableNode $table) {
-		$attributes = array_merge([], ...$table->getRows());
+    /**
+     * @Given these attributes should be visible next to the group :group:
+     */
+    public function thisAttributesShouldBeVisibleNextToTheGroup(string $group, TableNode $table)
+    {
+        $attributes = array_merge([], ...$table->getRows());
 
-		Assert::true(
-			$this->indexPage->areAttributesVisible($group, $attributes)
-		);
-	}
+        Assert::true(
+            $this->indexPage->areAttributesVisible($group, $attributes)
+        );
+    }
 }
