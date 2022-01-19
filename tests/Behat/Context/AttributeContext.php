@@ -10,7 +10,7 @@ use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Attribute\C
 use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Attribute\UpdateAttributePageInterface;
 use Webmozart\Assert\Assert;
 
-class AttributeContext implements Context
+final class AttributeContext implements Context
 {
     private CreateAttributePageInterface $createPage;
 
@@ -22,26 +22,29 @@ class AttributeContext implements Context
         CreateAttributePageInterface $createPage,
         UpdateAttributePageInterface $updatePage,
         RepositoryInterface $attributeRepository
-    )
-    {
+    ) {
         $this->createPage = $createPage;
         $this->updatePage = $updatePage;
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @Given there is created text attribute :attribute with assigned group :group with code :code
+     * @Given there is created text attribute :attribute with code :code and assigned group :group
+	 * @Given there is created text attribute :attribute with code :code
      */
-    public function thereIsCreatedAttributeWithAssignedGroup(
+    public function thereIsCreatedAttributeWithAssignedGroupAndCode(
         string $attribute,
-        string $group,
-        string $code
-    )
-    {
+        string $code,
+        string $group = null
+    ) {
         $this->createPage->open(['type' => 'text']);
         $this->createPage->nameIt($attribute, 'en_US');
         $this->createPage->specifyCode($code);
-        $this->createPage->assignGroup($group);
+
+		if (null !== $group) {
+			$this->createPage->assignGroup($group);
+		}
+
         $this->createPage->create();
     }
 

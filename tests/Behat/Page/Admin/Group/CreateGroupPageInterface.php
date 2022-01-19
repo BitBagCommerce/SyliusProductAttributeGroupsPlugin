@@ -9,4 +9,6 @@ use Sylius\Behat\Page\Admin\Crud\CreatePageInterface;
 interface CreateGroupPageInterface extends CreatePageInterface
 {
     public function fillName(string $name): void;
+
+	public function assignAttributes(array $codes): void;
 }

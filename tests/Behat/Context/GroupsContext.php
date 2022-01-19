@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context;
 
 use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\TableNode;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationChecker;
 use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Group\CreateGroupPageInterface;
@@ -70,6 +71,16 @@ final class GroupsContext implements Context
     }
 
     /**
+     * @When I assign this attributes to group:
+     */
+    public function iAssignThisAttributesToGroup(TableNode $table)
+    {
+        $codes = array_merge([], ...$table->getRows());
+
+		$this->createPage->assignAttributes($codes);
+    }
+
+    /**
      * @Then I should be notified that the group has been created
      */
     public function iShouldBeNotifiedThatTheGroupHasBeenCreated(): void
@@ -94,4 +105,15 @@ final class GroupsContext implements Context
             'There should exist only one group but it does not.'
         );
     }
+
+	/**
+	 * @Given these attributes should be visible next to the group :group:
+	 */
+	public function thisAttributesShouldBeVisibleNextToTheGroup(string $group, TableNode $table) {
+		$attributes = array_merge([], ...$table->getRows());
+
+		Assert::true(
+			$this->indexPage->areAttributesVisible($group, $attributes)
+		);
+	}
 }

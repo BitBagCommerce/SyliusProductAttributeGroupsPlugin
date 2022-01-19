@@ -20,4 +20,17 @@ class IndexGroupPage extends IndexPage implements IndexGroupPageInterface
 
         return false;
     }
+
+	public function areAttributesVisible(string $group, array $attributes): bool {
+		$row = $this->getDocument()->find('css', sprintf('table tr:contains("%s")', $group));
+
+		foreach ($attributes as $attribute){
+			$attributeBadge = $row->find('xpath', sprintf('td[2]/span[text()="%s"]', $attribute));
+			if (null === $attributeBadge) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 }

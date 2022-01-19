@@ -21,7 +21,7 @@ Feature: Create attribute with assigned group
 
   @ui
   Scenario: Change attribute group
-    Given there is created text attribute "Custom Attribute" with assigned group "Custom Group" with code "CUSTOM_ATTRIBUTE_CODE"
+    Given there is created text attribute "Custom Attribute" with code "CUSTOM_ATTRIBUTE_CODE" and assigned group "Custom Group"
     When I want to edit attribute with code "CUSTOM_ATTRIBUTE_CODE"
     And I assign group named "Custom Color Group" to it
     And I save my changes

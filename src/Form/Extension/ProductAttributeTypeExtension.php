@@ -37,7 +37,7 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
             'mapped' => false,
             'required' => false,
             'placeholder' => '',
-            'choice_value' => fn (?Group $group) => $group ? $group->getName() : null,
+            'choice_value' => fn (?Group $group) => null !== $group ? $group->getName() : null,
         ]);
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event): void {
@@ -64,7 +64,7 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
 
             $previousGroup = $this->attributeRepository->findOneBy(['syliusAttribute' => $event->getData()]);
 
-            if (($previousGroup !== $group && null !== $previousGroup) || null === $group) {
+            if (null !== $previousGroup) {
                 $this->attributeRepository->remove($previousGroup);
             }
 

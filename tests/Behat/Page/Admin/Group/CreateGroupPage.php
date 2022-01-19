@@ -12,4 +12,9 @@ class CreateGroupPage extends CreatePage implements CreateGroupPageInterface
     {
         $this->getDocument()->fillField('Name', $name);
     }
+
+	public function assignAttributes(array $codes): void
+	{
+		$this->getDocument()->findField('group_attributes')->setValue($codes);
+	}
 }
