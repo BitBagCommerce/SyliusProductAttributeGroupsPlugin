@@ -12,4 +12,20 @@ class CreateAttributePage extends CreatePage implements CreateAttributePageInter
     {
         $this->getDocument()->selectFieldOption('sylius_product_attribute_group', $group);
     }
+
+    public function createAttribute(
+        string $attribute,
+        string $code,
+        ?string $group
+    ): void {
+        $this->open(['type' => 'text']);
+        $this->nameIt($attribute, 'en_US');
+        $this->specifyCode($code);
+
+        if (null !== $group) {
+            $this->assignGroup($group);
+        }
+
+        $this->create();
+    }
 }

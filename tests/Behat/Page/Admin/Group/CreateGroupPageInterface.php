@@ -11,4 +11,6 @@ interface CreateGroupPageInterface extends CreatePageInterface
     public function fillName(string $name): void;
 
     public function assignAttributes(array $codes): void;
+
+    public function createGroup(string $group): void;
 }

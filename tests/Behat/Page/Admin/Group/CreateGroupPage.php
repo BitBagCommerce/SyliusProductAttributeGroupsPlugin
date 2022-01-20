@@ -17,4 +17,11 @@ class CreateGroupPage extends CreatePage implements CreateGroupPageInterface
     {
         $this->getDocument()->findField('group_attributes')->setValue($codes);
     }
+
+    public function createGroup(string $group): void
+    {
+        $this->open();
+        $this->fillName($group);
+        $this->create();
+    }
 }

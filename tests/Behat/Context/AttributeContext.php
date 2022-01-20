@@ -36,16 +36,8 @@ final class AttributeContext implements Context
         string $attribute,
         string $code,
         string $group = null
-    ) {
-        $this->createPage->open(['type' => 'text']);
-        $this->createPage->nameIt($attribute, 'en_US');
-        $this->createPage->specifyCode($code);
-
-        if (null !== $group) {
-            $this->createPage->assignGroup($group);
-        }
-
-        $this->createPage->create();
+    ): void {
+        $this->createPage->createAttribute($attribute, $code, $group);
     }
 
     /**
@@ -59,7 +51,7 @@ final class AttributeContext implements Context
     /**
      * @When I want to edit attribute with code :code
      */
-    public function iWantToEditAttributeWithCode(string $code)
+    public function iWantToEditAttributeWithCode(string $code): void
     {
         $id = $this->attributeRepository->findOneBy(['code' => $code])->getId();
 
@@ -69,7 +61,7 @@ final class AttributeContext implements Context
     /**
      * @When I save my changes
      */
-    public function iSaveMyChanges()
+    public function iSaveMyChanges(): void
     {
         $this->updatePage->saveChanges();
     }

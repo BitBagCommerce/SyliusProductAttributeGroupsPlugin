@@ -41,9 +41,7 @@ final class GroupsContext implements Context
      */
     public function thereIsCreatedGroupWithName(string $group): void
     {
-        $this->createPage->open();
-        $this->createPage->fillName($group);
-        $this->createPage->create();
+        $this->createPage->createGroup($group);
     }
 
     /**
@@ -73,7 +71,7 @@ final class GroupsContext implements Context
     /**
      * @When I assign this attributes to group:
      */
-    public function iAssignThisAttributesToGroup(TableNode $table)
+    public function iAssignThisAttributesToGroup(TableNode $table): void
     {
         $codes = array_merge([], ...$table->getRows());
 
@@ -109,7 +107,7 @@ final class GroupsContext implements Context
     /**
      * @Given these attributes should be visible next to the group :group:
      */
-    public function thisAttributesShouldBeVisibleNextToTheGroup(string $group, TableNode $table)
+    public function thisAttributesShouldBeVisibleNextToTheGroup(string $group, TableNode $table): void
     {
         $attributes = array_merge([], ...$table->getRows());
 
