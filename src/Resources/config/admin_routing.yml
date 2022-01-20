@@ -6,4 +6,4 @@ sylius_admin_attribute_group:
         templates: "@SyliusAdmin/Crud"
         grid: bitbag_sylius_product_attribute_group
     type: sylius.resource
-    prefix: /product-attribute-groups-plugin
+    prefix: /admin/product-attribute-groups-plugin
