@@ -17,9 +17,13 @@ final class AttributeGroupMenuListener
     public function groupList(MenuBuilderEvent $event): void
     {
         $menu = $event->getMenu();
+        $catalogNode = $menu->getChild('catalog');
 
-        $menu
-            ->getChild('catalog')
+        if (null === $catalogNode) {
+            return;
+        }
+
+        $catalogNode
             ->addChild('subitem', [
                 'route' => 'bitbag_sylius_product_attribute_group_plugin_admin_group_index',
             ])

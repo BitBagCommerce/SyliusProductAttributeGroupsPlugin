@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true"/>
+        <service id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.context.groups_context"
+                 class="Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context\GroupsContext">
+            <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.group.create"/>
+            <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.group.index"/>
+            <argument type="service" id="sylius.behat.notification_checker"/>
+        </service>
+        <service id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.context.attribute_context"
+                 class="Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context\AttributeContext">
+            <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.attribute.create"/>
+            <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.attribute.update"/>
+            <argument type="service" id="sylius.repository.product_attribute"/>
+        </service>
+    </services>
+</container>
