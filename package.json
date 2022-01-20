@@ -1,8 +1,8 @@
 {
-  "name": "@bitbag/skeleton-plugin",
+  "name": "@bitbag/product-attribute-group-plugin",
   "version": "1.0.0",
-  "description": "Skeleton for starting Sylius plugins.",
-  "repository": "git@github.com:BitBagCommerce/SyliusPluginSkeleton.git",
+  "description": "Plugin for creating product attribute group in Sylius application.",
+  "repository": "https://github.com/BitBagCommerce/SyliusProductAttributeGroupsPlugin.git",
   "license": "MIT",
   "private": true,
   "scripts": {
