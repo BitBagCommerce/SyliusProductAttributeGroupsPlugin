@@ -31,49 +31,59 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('group', EntityType::class, [
+        $builder->add('groups', EntityType::class, [
+            'multiple' => true,
             'class' => Group::class,
             'choice_label' => 'name',
             'mapped' => false,
             'required' => false,
             'placeholder' => '',
             'choice_value' => fn (?Group $group) => null !== $group ? $group->getName() : null,
+            'attr' => [
+                'class' => 'fluid search selection multiple',
+            ],
         ]);
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event): void {
             $form = $event->getForm();
-            /** @var Attribute|null $attribute */
-            $attribute = $this->attributeRepository->findOneBy(['syliusAttribute' => $event->getData()]);
+            /** @var Attribute[] $attributes */
+            $attributes = $this->attributeRepository->findBy(['syliusAttribute' => $event->getData()]);
 
-            if (null === $attribute) {
+            if (empty($attributes)) {
                 return;
             }
 
-            $group = $form->get('group');
-            $group->setData($attribute->getGroup());
+            $groups = array_map(fn (Attribute $attribute) => $attribute->getGroup(), $attributes);
+
+            $groupsField = $form->get('groups');
+            $groupsField->setData($groups);
         });
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event): void {
             $form = $event->getForm();
             $syliusAttribute = $event->getData();
-            $group = $form->get('group')->getData();
+            $groupCollection = $form->get('groups')->getData();
 
             if (!$form->isValid()) {
                 return;
             }
 
-            $previousGroup = $this->attributeRepository->findOneBy(['syliusAttribute' => $event->getData()]);
+            $previousGroups = $this->attributeRepository->findBy(['syliusAttribute' => $event->getData()]);
 
-            if (null !== $previousGroup) {
-                $this->attributeRepository->remove($previousGroup);
+            if (!empty($previousGroups)) {
+                foreach ($previousGroups as $previousGroup) {
+                    $this->attributeRepository->remove($previousGroup);
+                }
             }
 
-            if (null === $group) {
+            if (empty($groupCollection)) {
                 return;
             }
 
-            $attribute = $this->attributeFactory->createWithGroup($group, $syliusAttribute);
-            $this->attributeRepository->add($attribute);
+            foreach ($groupCollection as $group) {
+                $attribute = $this->attributeFactory->createWithGroup($group, $syliusAttribute);
+                $this->attributeRepository->add($attribute);
+            }
         });
     }
 
