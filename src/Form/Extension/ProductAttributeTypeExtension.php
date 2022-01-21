@@ -49,7 +49,7 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
             /** @var Attribute[] $attributes */
             $attributes = $this->attributeRepository->findBy(['syliusAttribute' => $event->getData()]);
 
-            if (empty($attributes)) {
+            if (0 === count($attributes)) {
                 return;
             }
 
@@ -70,13 +70,13 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
 
             $previousGroups = $this->attributeRepository->findBy(['syliusAttribute' => $event->getData()]);
 
-            if (!empty($previousGroups)) {
+            if (0 !== count($previousGroups)) {
                 foreach ($previousGroups as $previousGroup) {
                     $this->attributeRepository->remove($previousGroup);
                 }
             }
 
-            if (empty($groupCollection)) {
+            if (0 === count($groupCollection)) {
                 return;
             }
 
