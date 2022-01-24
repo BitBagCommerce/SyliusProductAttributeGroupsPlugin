@@ -33,7 +33,7 @@ our [academy](https://bitbag.io/pl/akademia?utm_source=github&utm_medium=url&utm
 1. *We work on stable, supported and up-to-date versions of packages. We recommend you to do the same.*
 
 ```bash
-$ bitbag/product-attribute-groups-plugin
+$ composer install bitbag/product-attribute-groups-plugin
 ```
 
 2. Add plugin dependencies to your `config/bundles.php` file:
