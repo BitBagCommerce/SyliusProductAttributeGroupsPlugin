@@ -121,7 +121,7 @@ sylius_admin_attribute_group:
         {{ form_row(form.code) }}
         {{ form_row(form.position) }}
         {{ form_row(form.type) }}
-        {{ form_row(form.group) }}
+        {{ form_row(form.groups) }}
     </div>
     {{ form_row(form.translatable) }}
 </div>
