@@ -29,5 +29,14 @@
                  class="BitBag\SyliusProductAttributeGroupsPlugin\Factory\AttributeFactory" decorates="bitbag_sylius_product_attribute_group_plugin.factory.attribute">
             <argument type="service" id="bitbag_sylius_product_attribute_groups_plugin.form.factory.attribute_factory.inner"/>
         </service>
+        <service id="bitbag_sylius_product_attribute_groups_plugin.twig.extension.render_attribute_names_extension"
+                class="BitBag\SyliusProductAttributeGroupsPlugin\Twig\Extension\RenderAttributeNamesExtension">
+            <tag name="twig.extension" />
+        </service>
+        <service id="bitbag_sylius_product_attribute_groups_plugin.twig.runtime.render_attribute_names_runtime"
+                class="BitBag\SyliusProductAttributeGroupsPlugin\Twig\Runtime\RenderAttributeNamesRuntime">
+            <tag name="twig.runtime" />
+            <argument type="service" id="bitbag_sylius_product_attribute_group_plugin.repository.group"/>
+        </service>
     </services>
 </container>
