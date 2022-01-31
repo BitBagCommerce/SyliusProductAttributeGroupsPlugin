@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BitBag\SyliusProductAttributeGroupsPlugin\Twig\Runtime;
 
 use BitBag\SyliusProductAttributeGroupsPlugin\Repository\GroupRepositoryInterface;
@@ -13,7 +15,8 @@ final class RenderAttributeNamesRuntime
         $this->groupRepository = $groupRepository;
     }
 
-    public function getAttributeNames(int $id, string $locale): array {
+    public function getAttributeNames(int $id, string $locale): array
+    {
         return $this->groupRepository->findAttributesById($id, $locale);
     }
 }

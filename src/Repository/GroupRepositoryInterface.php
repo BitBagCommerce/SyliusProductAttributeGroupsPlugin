@@ -1,7 +1,8 @@
 <?php
 
-namespace BitBag\SyliusProductAttributeGroupsPlugin\Repository;
+declare(strict_types=1);
 
+namespace BitBag\SyliusProductAttributeGroupsPlugin\Repository;
 
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 

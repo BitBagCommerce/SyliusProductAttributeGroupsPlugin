@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BitBag\SyliusProductAttributeGroupsPlugin\Repository;
 
 use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute;
@@ -11,7 +13,7 @@ class GroupRepository extends EntityRepository implements GroupRepositoryInterfa
 {
     public function findAttributesById(int $id, string $locale): array
     {
-       $results = $this->createQueryBuilder('g')
+        $results = $this->createQueryBuilder('g')
            ->select('pat.name')
            ->innerJoin(Attribute::class, 'a')
            ->innerJoin(ProductAttribute::class, 'pa')
@@ -24,6 +26,6 @@ class GroupRepository extends EntityRepository implements GroupRepositoryInterfa
            ->getQuery()
            ->getResult();
 
-       return array_map(fn(array $item) => $item['name'], $results);
+        return array_map(fn (array $item) => $item['name'], $results);
     }
 }
