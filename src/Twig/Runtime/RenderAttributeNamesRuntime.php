@@ -6,7 +6,7 @@ namespace BitBag\SyliusProductAttributeGroupsPlugin\Twig\Runtime;
 
 use BitBag\SyliusProductAttributeGroupsPlugin\Repository\GroupRepositoryInterface;
 
-final class RenderAttributeNamesRuntime
+final class RenderAttributeNamesRuntime implements RenderAttributeNamesRuntimeInterface
 {
     private GroupRepositoryInterface $groupRepository;
 
