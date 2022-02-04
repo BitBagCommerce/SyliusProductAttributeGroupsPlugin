@@ -1,7 +1,7 @@
 {% if data is empty %}
     <span>{{ 'bitbag_sylius_product_attribute_group_plugin.ui.no_attributes'|trans }}</span>
 {% else %}
-    {% for attribute in data %}
-        <span class="ui label"><i class="icon cube"></i>{{ attribute.syliusAttribute.name }}</span>
+    {% for attribute in bitbag_attribute_plugin_get_attribute_names((data | first).group.id, sylius_base_locale) %}
+        <span class="ui label"><i class="icon cube"></i>{{ attribute }}</span>
     {% endfor %}
 {% endif %}
