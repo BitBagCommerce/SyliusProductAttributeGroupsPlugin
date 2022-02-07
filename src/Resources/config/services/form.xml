@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="bitbag_sylius_product_attribute_groups_plugin.form.type.group_type"
+                 class="BitBag\SyliusProductAttributeGroupsPlugin\Form\Type\GroupType" public="false">
+            <argument type="service"
+                      id="bitbag_sylius_product_attribute_groups_plugin.form.data_transformer.attribute_transformer"/>
+            <tag name="form.type"/>
+        </service>
+        <service id="bitbag_sylius_product_attribute_groups_plugin.form.data_transformer.attribute_transformer"
+                 class="BitBag\SyliusProductAttributeGroupsPlugin\Form\DataTransformer\AttributeTransformer"
+                 public="false">
+            <argument type="service" id="bitbag_sylius_product_attribute_group_plugin.factory.attribute"/>
+        </service>
+        <service id="bitbag_sylius_product_attribute_groups_plugin.form.extension.product_attribute_type_extension"
+                 class="BitBag\SyliusProductAttributeGroupsPlugin\Form\Extension\ProductAttributeTypeExtension">
+            <argument type="service" id="bitbag_sylius_product_attribute_group_plugin.repository.attribute"/>
+            <argument type="service" id="bitbag_sylius_product_attribute_groups_plugin.factory.attribute_factory"/>
+            <tag name="form.type_extension"
+                 extended_type="Sylius\Bundle\ProductBundle\Form\Type\ProductAttributeType"/>
+        </service>
+    </services>
+</container>
