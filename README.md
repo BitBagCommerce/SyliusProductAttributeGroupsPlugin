@@ -1,3 +1,5 @@
+[![](https://bitbag.io/wp-content/uploads/2022/02/SyliusProductAttributeGroupsPlugin.png)](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_attribute_groups)
+
 # BitBag SyliusProductAttributeGroupsPlugin
 
 ----
