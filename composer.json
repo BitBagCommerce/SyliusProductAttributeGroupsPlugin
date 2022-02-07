@@ -45,11 +45,6 @@
     "config": {
         "sort-packages": true
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.10-dev"
-        }
-    },
     "autoload": {
         "psr-4": {
             "BitBag\\SyliusProductAttributeGroupsPlugin\\": "src/",
