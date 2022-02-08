@@ -62,18 +62,11 @@ imports:
 4. Add required routes:
 
 ```yaml
-# config/routes/bitbag_product_attribute_groups_plugin.yaml
+# config/routes.yaml
+...
 
-sylius_admin_attribute_group:
-    resource: |
-        alias: bitbag_sylius_product_attribute_group_plugin.group
-        except: ['show']
-        section: admin
-        templates: "@SyliusAdmin/Crud"
-        grid: bitbag_sylius_product_attribute_group
-    type: sylius.resource
-    prefix: /admin/product-attribute-groups-plugin
-
+bitbag_product_attribute_groups_plugin:
+    resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/routing.yml"
 ```
 
 5. Override product attribute form:
