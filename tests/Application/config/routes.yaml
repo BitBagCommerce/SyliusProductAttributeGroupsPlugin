@@ -1,3 +1,2 @@
-bitbag_sylius_product_attribute_groups_plugin_admin:
-    resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/admin_routing.yml"
-    prefix: /admin
+bitbag_product_attribute_groups_plugin:
+    resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/routing.yml"
