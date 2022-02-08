@@ -2,41 +2,12 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <imports>
+        <import resource="services/**/*.xml" />
+    </imports>
     <services>
-        <service id="bitbag_sylius_product_attribute_groups_plugin.menu.attribute_group_menu_listener"
-                 class="BitBag\SyliusProductAttributeGroupsPlugin\Menu\AttributeGroupMenuListener" public="false">
-            <tag name="kernel.event_listener" event="sylius.menu.admin.main" method="groupList"/>
-        </service>
-        <service id="bitbag_sylius_product_attribute_groups_plugin.form.type.group_type"
-                 class="BitBag\SyliusProductAttributeGroupsPlugin\Form\Type\GroupType" public="false">
-            <argument type="service"
-                      id="bitbag_sylius_product_attribute_groups_plugin.form.data_transformer.attribute_transformer"/>
-            <tag name="form.type"/>
-        </service>
-        <service id="bitbag_sylius_product_attribute_groups_plugin.form.data_transformer.attribute_transformer"
-                 class="BitBag\SyliusProductAttributeGroupsPlugin\Form\DataTransformer\AttributeTransformer"
-                 public="false">
-            <argument type="service" id="bitbag_sylius_product_attribute_group_plugin.factory.attribute"/>
-        </service>
-        <service id="bitbag_sylius_product_attribute_groups_plugin.form.extension.product_attribute_type_extension"
-                 class="BitBag\SyliusProductAttributeGroupsPlugin\Form\Extension\ProductAttributeTypeExtension">
-            <argument type="service" id="bitbag_sylius_product_attribute_group_plugin.repository.attribute"/>
-            <argument type="service" id="bitbag_sylius_product_attribute_groups_plugin.form.factory.attribute_factory"/>
-            <tag name="form.type_extension"
-                 extended_type="Sylius\Bundle\ProductBundle\Form\Type\ProductAttributeType"/>
-        </service>
-        <service id="bitbag_sylius_product_attribute_groups_plugin.form.factory.attribute_factory"
-                 class="BitBag\SyliusProductAttributeGroupsPlugin\Factory\AttributeFactory" decorates="bitbag_sylius_product_attribute_group_plugin.factory.attribute">
-            <argument type="service" id="bitbag_sylius_product_attribute_groups_plugin.form.factory.attribute_factory.inner"/>
-        </service>
-        <service id="bitbag_sylius_product_attribute_groups_plugin.twig.extension.render_attribute_names_extension"
-                class="BitBag\SyliusProductAttributeGroupsPlugin\Twig\Extension\RenderAttributeNamesExtension">
-            <tag name="twig.extension" />
-        </service>
-        <service id="bitbag_sylius_product_attribute_groups_plugin.twig.runtime.render_attribute_names_runtime"
-                class="BitBag\SyliusProductAttributeGroupsPlugin\Twig\Runtime\RenderAttributeNamesRuntime">
-            <tag name="twig.runtime" />
-            <argument type="service" id="bitbag_sylius_product_attribute_group_plugin.repository.group"/>
-        </service>
+        <defaults public="false" />
+        <defaults autowire="false" />
+        <defaults autoconfigure="false" />
     </services>
 </container>

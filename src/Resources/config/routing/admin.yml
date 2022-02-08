@@ -1,0 +1,2 @@
+bitbag_sylius_product_attribute_groups_plugin:
+  resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/routing/admin/group.yml"

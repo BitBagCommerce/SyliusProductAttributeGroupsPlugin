@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusProductAttributeGroupsPlugin\Repository;
 
-use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
-use Sylius\Component\Product\Model\ProductAttribute;
-use Sylius\Component\Product\Model\ProductAttributeTranslation;
 
 class GroupRepository extends EntityRepository implements GroupRepositoryInterface
 {
@@ -15,9 +12,9 @@ class GroupRepository extends EntityRepository implements GroupRepositoryInterfa
     {
         $results = $this->createQueryBuilder('g')
            ->select('pat.name')
-           ->innerJoin(Attribute::class, 'a')
-           ->innerJoin(ProductAttribute::class, 'pa')
-           ->innerJoin(ProductAttributeTranslation::class, 'pat')
+           ->innerJoin('g.attributes', 'a')
+           ->innerJoin('a.syliusAttribute', 'pa')
+           ->innerJoin('pa.translations', 'pat')
            ->where('g.id = :id')
            ->andWhere('pat.locale = :locale')
            ->setParameters(['id' => $id, 'locale' => $locale])

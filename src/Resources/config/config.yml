@@ -1,3 +1,4 @@
 imports:
     - { resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/services.xml" }
+    - { resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/grids.yml" }
     - { resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/resources.yml" }

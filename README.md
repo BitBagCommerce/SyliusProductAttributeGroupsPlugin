@@ -59,57 +59,17 @@ imports:
     - { resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/config.yml" }
 ```
 
-4. Import required grid:
+4. Add required routes:
 
 ```yaml
-# config/packages/_sylius.yaml
+# config/routes.yaml
+...
 
-sylius_grid:
-    grids:
-        ...
-
-        bitbag_sylius_product_attribute_group:
-            driver:
-                options:
-                    class: BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group
-            fields:
-                name:
-                    type: string
-                    label: bitbag_sylius_product_attribute_group_plugin.ui.name
-                attributes:
-                    type: twig
-                    label: bitbag_sylius_product_attribute_group_plugin.ui.attributes
-                    options:
-                        template: "@BitBagSyliusProductAttributeGroupsPlugin/Grid/Field/attributes.html.twig"
-            actions:
-                main:
-                    create:
-                        type: create
-                item:
-                    update:
-                        type: update
-                    delete:
-                        type: delete
+bitbag_product_attribute_groups_plugin:
+    resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/routing.yml"
 ```
 
-5. Add required routes:
-
-```yaml
-# config/routes/bitbag_product_attribute_groups_plugin.yaml
-
-sylius_admin_attribute_group:
-    resource: |
-        alias: bitbag_sylius_product_attribute_group_plugin.group
-        except: ['show']
-        section: admin
-        templates: "@SyliusAdmin/Crud"
-        grid: bitbag_sylius_product_attribute_group
-    type: sylius.resource
-    prefix: /admin/product-attribute-groups-plugin
-
-```
-
-6. Override product attribute form:
+5. Override product attribute form:
 
 ```
 # templates/bundles/SyliusAdminBundle/ProductAttribute/_form.html.twig
