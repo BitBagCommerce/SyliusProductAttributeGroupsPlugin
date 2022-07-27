@@ -66,8 +66,7 @@ class Group implements GroupInterface
     {
         $attributeCode = [];
 
-        foreach ($this->getAttributes() as $attribute)
-        {
+        foreach ($this->getAttributes() as $attribute) {
             $attributeCode[] = $attribute->getSyliusAttribute()->getCode();
         }
 
