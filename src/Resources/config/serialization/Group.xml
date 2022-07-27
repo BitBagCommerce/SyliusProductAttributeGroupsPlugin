@@ -5,12 +5,15 @@
 >
     <class name="BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group">
         <attribute name="id">
+            <group>shop:group:read</group>
             <group>admin:group:read</group>
         </attribute>
         <attribute name="name">
+            <group>shop:group:read</group>
             <group>admin:group:read</group>
         </attribute>
         <attribute name="attributeCodes">
+            <group>shop:group:read</group>
             <group>admin:group:read</group>
         </attribute>
     </class>
