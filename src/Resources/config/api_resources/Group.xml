@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<resources xmlns="https://api-platform.com/schema/metadata"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="https://api-platform.com/schema/metadata https://api-platform.com/schema/metadata/metadata-2.0.xsd"
+>
+    <resource class="%bitbag_sylius_product_attribute_group_plugin.model.group.class%" shortName="AttributeGroup">
+        <attribute name="normalization_context">
+            <attribute name="groups">
+                <attribute>admin:group:read</attribute>
+            </attribute>
+        </attribute>
+
+        <attribute name="denormalizationContext">
+            <attribute name="groups">
+                <attribute>admin:group:read</attribute>
+            </attribute>
+        </attribute>
+
+        <attribute name="validation_groups">sylius</attribute>
+
+        <collectionOperations>
+            <collectionOperation name="admin_get_attributes_groups">
+                <attribute name="method">GET</attribute>
+                <attribute name="path">/admin/attributes_groups</attribute>
+                <attribute name="normalization_context">
+                    <attribute name="groups">admin:group:read</attribute>
+                </attribute>
+            </collectionOperation>
+        </collectionOperations>
+
+        <property name="id" identifier="true" writable="false"/>
+        <property name="name" writable="false" required="true"/>
+
+    </resource>
+</resources>
