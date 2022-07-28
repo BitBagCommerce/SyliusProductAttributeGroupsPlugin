@@ -1,5 +1,5 @@
 const getAttributesGroup = async () => {
-    const response = await fetch(url, {
+    const response = await fetch(urlAttributesGroup, {
         headers: {
             Accept: "application/json",
         },
@@ -30,4 +30,6 @@ const selectAttributes = codes => {
     }
 }
 
-getAttributesGroup()
+if(typeof urlAttributesGroup !== 'undefined') {
+    getAttributesGroup()
+}
