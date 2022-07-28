@@ -8,7 +8,9 @@ Feature: Create attribute group
     Given I am logged in as an administrator
     And the store operates on a single channel in "United States"
     And the store has a product "44 Magnum"
-    And the store has a product attribute group "myGroup"
+    And the store has a product attribute group "myGroup" with attributes:
+      | CUSTOM_LENGTH_ATTRIBUTE |
+      | CUSTOM_COLOR_ATTRIBUTE  |
 
   @ui
   Scenario: Seeing message about no new attributes selected

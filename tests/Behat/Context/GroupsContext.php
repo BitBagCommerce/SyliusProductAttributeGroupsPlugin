@@ -12,6 +12,7 @@ namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute;
 use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group;
 use Doctrine\ORM\EntityManager;
 use Sylius\Behat\NotificationType;
@@ -149,31 +150,31 @@ final class GroupsContext implements Context
     }
 
     /**
-     * @Given the store has a product attribute group :arg1
+     * @Given the store has a product attribute group :groupName with attributes:
      */
-    public function theStoreHasAProductAttributeGroup(string $arg1)
+    public function theStoreHasAProductAttributeGroup(string $groupName, TableNode $table)
     {
         $group = new Group();
-        $group->setName($arg1);
+        $group->setName($groupName);
 
-        $attribute = new ProductAttribute();
+        $attributeCodes = array_merge([], ...$table->getRows());
 
-        $attribute->setCurrentLocale('en_US');
-        $attribute->setFallbackLocale('en_US');
-        $attribute->setName('Attribute');
-        $attribute->setCode('Attribute_Code');
-        $attribute->setConfiguration([]);
-        $attribute->setTranslatable(false);
-        $attribute->setType('text');
-        $attribute->setStorageType('text');
+        foreach ($attributeCodes as $attributeCode) {
+            $syliusAttribute = new ProductAttribute();
+            $syliusAttribute->setCode($attributeCode);
+            $syliusAttribute->setType('text');
+            $syliusAttribute->setStorageType('text');
+            $syliusAttribute->setTranslatable(false);
 
-//        $productAttributeWithGroups = new Attribute();
-//        $productAttributeWithGroups->setGroup($group);
-//        $productAttributeWithGroups->setSyliusAttribute($attribute);
+            $attribute = new Attribute();
+            $attribute->setGroup($group);
+            $attribute->setSyliusAttribute($syliusAttribute);
+
+            $this->entityManager->persist($syliusAttribute);
+            $this->entityManager->persist($attribute);
+        }
 
         $this->entityManager->persist($group);
-        $this->entityManager->persist($attribute);
-//        $this->entityManager->persist($productAttributeWithGroups);
 
         $this->entityManager->flush();
     }
