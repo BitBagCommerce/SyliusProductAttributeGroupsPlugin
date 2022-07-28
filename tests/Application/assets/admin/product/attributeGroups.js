@@ -12,6 +12,7 @@ const getAttributesGroup = async () => {
 
         item.innerHTML = data[i].name
         item.classList.add("item")
+        item.id = `attributeGroup-${data[i].name}`
         item.addEventListener("click", function () {
             selectAttributes(data[i].attributeCodes)
         })

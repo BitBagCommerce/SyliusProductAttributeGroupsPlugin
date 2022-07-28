@@ -7,8 +7,14 @@
         <service id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.context.groups_context"
                  class="Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context\GroupsContext">
             <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.group.create"/>
-            <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.group.index"/>
             <argument type="service" id="sylius.behat.notification_checker"/>
+            <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.group.index"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="sylius.behat.shared_storage" />
+            <argument type="service" id="sylius.behat.java_script_test_helper"/>
+            <argument type="service" id="sylius.repository.product"/>
+            <argument type="service" id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.product.update" />
+            <argument type="service" id="sylius.behat.page.admin.product.update_simple" />
         </service>
         <service id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.context.attribute_context"
                  class="Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context\AttributeContext">

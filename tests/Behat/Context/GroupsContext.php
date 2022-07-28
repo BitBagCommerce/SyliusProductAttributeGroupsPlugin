@@ -12,10 +12,18 @@ namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group;
+use Doctrine\ORM\EntityManager;
 use Sylius\Behat\NotificationType;
+use Sylius\Behat\Page\Admin\Product\UpdateSimpleProductPage as BaseUpdateSimpleProductPage;
+use Sylius\Behat\Service\Helper\JavaScriptTestHelperInterface;
 use Sylius\Behat\Service\NotificationChecker;
+use Sylius\Behat\Service\SharedStorageInterface;
+use Sylius\Component\Core\Repository\ProductRepositoryInterface;
+use Sylius\Component\Product\Model\ProductAttribute;
 use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Group\CreateGroupPageInterface;
 use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Group\IndexGroupPageInterface;
+use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Product\UpdateSimpleProductPage;
 use Webmozart\Assert\Assert;
 
 final class GroupsContext implements Context
@@ -26,14 +34,38 @@ final class GroupsContext implements Context
 
     private IndexGroupPageInterface $indexPage;
 
+    private EntityManager $entityManager;
+
+    private SharedStorageInterface $sharedStorage;
+
+    private JavaScriptTestHelperInterface $testHelper;
+
+    private ProductRepositoryInterface $productRepository;
+
+    private UpdateSimpleProductPage $updateSimpleProductPage;
+
+    private BaseUpdateSimpleProductPage $baseUpdateSimpleProductPage;
+
     public function __construct(
         CreateGroupPageInterface $createPage,
+        NotificationChecker $notificationChecker,
         IndexGroupPageInterface $indexPage,
-        NotificationChecker $notificationChecker
+        EntityManager $entityManager,
+        SharedStorageInterface $sharedStorage,
+        JavaScriptTestHelperInterface $testHelper,
+        ProductRepositoryInterface $productRepository,
+        UpdateSimpleProductPage $productPage,
+        BaseUpdateSimpleProductPage $baseUpdateSimpleProductPage
     ) {
         $this->createPage = $createPage;
-        $this->indexPage = $indexPage;
         $this->notificationChecker = $notificationChecker;
+        $this->indexPage = $indexPage;
+        $this->entityManager = $entityManager;
+        $this->sharedStorage = $sharedStorage;
+        $this->testHelper = $testHelper;
+        $this->productRepository = $productRepository;
+        $this->updateSimpleProductPage = $productPage;
+        $this->baseUpdateSimpleProductPage = $baseUpdateSimpleProductPage;
     }
 
     /**
@@ -114,5 +146,63 @@ final class GroupsContext implements Context
         Assert::true(
             $this->indexPage->areAttributesVisible($group, $attributes)
         );
+    }
+
+    /**
+     * @Given the store has a product attribute group :arg1
+     */
+    public function theStoreHasAProductAttributeGroup(string $arg1)
+    {
+        $group = new Group();
+        $group->setName($arg1);
+
+        $attribute = new ProductAttribute();
+
+        $attribute->setCurrentLocale('en_US');
+        $attribute->setFallbackLocale('en_US');
+        $attribute->setName('Attribute');
+        $attribute->setCode('Attribute_Code');
+        $attribute->setConfiguration([]);
+        $attribute->setTranslatable(false);
+        $attribute->setType('text');
+        $attribute->setStorageType('text');
+
+//        $productAttributeWithGroups = new Attribute();
+//        $productAttributeWithGroups->setGroup($group);
+//        $productAttributeWithGroups->setSyliusAttribute($attribute);
+
+        $this->entityManager->persist($group);
+        $this->entityManager->persist($attribute);
+//        $this->entityManager->persist($productAttributeWithGroups);
+
+        $this->entityManager->flush();
+    }
+
+
+    /**
+     * @When I want to modify the :productName product
+     * @When /^I want to modify (this product)$/
+     * @When I modify the :product product
+     */
+    public function iWantToModifyAProduct(string $productName): void
+    {
+        $product = $this->productRepository->findOneByCode($productName);
+
+        $this->sharedStorage->set('product', $product);
+        if ($product->isSimple()) {
+            $this->testHelper->waitUntilPageOpens($this->baseUpdateSimpleProductPage, ['id' => $product->getId()]);
+
+            return;
+        }
+
+        $this->testHelper->waitUntilPageOpens($this->baseUpdateSimpleProductPage, ['id' => $product->getId()]);
+    }
+
+    /**
+     * @When I try to add new attributes group for product
+     */
+    public function iTryToAddNewAttributesGroupForProduct()
+    {
+        $this->updateSimpleProductPage->addSelectedAttributesGroup();
     }
 }

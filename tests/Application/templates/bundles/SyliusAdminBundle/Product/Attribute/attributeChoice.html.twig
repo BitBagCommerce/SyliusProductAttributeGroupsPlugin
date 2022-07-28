@@ -1,10 +1,10 @@
 <div class="ui fluid action input" id="attributeChoice" data-action="{{ path('sylius_admin_render_attribute_forms') }}" style="margin-bottom: 30px;">
     {{ form_widget(form, {'attr': {'class': 'ui fluid search dropdown', 'id': 'sylius_product_attribute_choice', 'data-attributes': ''}}) }}
 
-    <div class="ui olive labeled icon floating dropdown link button" tabindex="0">
+    <div class="ui olive labeled icon floating dropdown link button" id="add_attributes_group" data-tab="add_attributes_group" tabindex="0">
         <i class="icon clipboard list"></i> <span class="text"> {{ 'bitbag_sylius_product_attribute_group_plugin.ui.attributes_group'|trans }} </span>
 
-        <div class="menu transition hidden" data-attribute-groups tabindex="-1"></div>
+        <div id="menuWithAttributesGroup" class="menu transition hidden" data-attribute-groups tabindex="-1"></div>
     </div>
 
     <button class="ui green labeled icon button" type="button">
