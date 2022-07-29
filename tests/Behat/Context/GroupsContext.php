@@ -26,6 +26,7 @@ use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Group\Creat
 use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Group\IndexGroupPageInterface;
 use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Product\UpdateSimpleProductPage;
 use Webmozart\Assert\Assert;
+use function PHPUnit\Framework\assertEquals;
 
 final class GroupsContext implements Context
 {
@@ -200,10 +201,20 @@ final class GroupsContext implements Context
     }
 
     /**
-     * @When I try to add new attributes group for product
+     * @When I want to open attributes tab
      */
     public function iTryToAddNewAttributesGroupForProduct()
     {
         $this->updateSimpleProductPage->addSelectedAttributesGroup();
     }
+
+    /**
+     * @Then I should see button to add AttributesGroup
+     */
+    public function iShouldSeeButtonToAddAttributesGroup()
+    {
+        $buttonAddAttributesGroupName = $this->updateSimpleProductPage->getButtonToAddAttributesGroup();
+        assertEquals('add_attributes_group', $buttonAddAttributesGroupName);
+    }
+
 }

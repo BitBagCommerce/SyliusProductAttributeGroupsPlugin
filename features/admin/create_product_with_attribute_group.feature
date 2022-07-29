@@ -15,4 +15,5 @@ Feature: Create attribute group
   @ui
   Scenario: Seeing message about no new attributes selected
     Given I want to modify the "44_Magnum" product
-    And I try to add new attributes group for product
+    And I want to open attributes tab
+    Then I should see button to add AttributesGroup
