@@ -11,6 +11,12 @@ class UpdateSimpleProductPage extends CreatePage
     public function addSelectedAttributesGroup(): void
     {
         $this->clickTabIfItsNotActive('attributes');
+        $this->getDocument()->pressButton('Add attribute group');
+
+        $attributesTab = $this->getElement('attributeCollectionSelect', ['%id%' => 0]);
+        $attributesTab->click();
+
+
     }
 
     private function clickTabIfItsNotActive(string $tabName): void
@@ -31,6 +37,7 @@ class UpdateSimpleProductPage extends CreatePage
     {
         return array_merge(parent::getDefinedElements(), [
             'tab' => '.menu [data-tab="%name%"]',
+            'attributeCollectionSelect' => '.item [data-test-collection-atributes-select="%id%"]'
         ]);
     }
 }
