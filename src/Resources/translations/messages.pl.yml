@@ -1,0 +1,9 @@
+bitbag_sylius_product_attribute_group_plugin:
+  ui:
+    groups: Grupy atrybutów
+    name: Nazwa
+    new_group: Nowa grupa atrybutów
+    edit_group: Edytuj grupę atrybutów
+    attributes: Atrybuty
+    no_attributes: Brak przypisanych atrybutów
+    attributes_group: Dodaj grupę atrybutów
