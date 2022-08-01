@@ -22,6 +22,8 @@ class UpdateSimpleProductPage extends UpdatePage
     {
         $this->getDocument()->pressButton('Add attribute group');
 
+        $this->getSession()->wait(1000);
+
         $attributesTab = $this->getElement('tab', ['%name%' => 'attribute-group']);
         $attributesTab->click();
 
