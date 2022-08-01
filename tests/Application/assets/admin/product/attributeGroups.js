@@ -10,7 +10,7 @@ const getAttributesGroup = async () => {
     for (let i = 0; i < data.length; i++) {
         let item = document.createElement("div")
 
-        item.dataset.testCollectionAtributesSelect = i;
+        item.dataset.tab = 'attribute-group';
         item.innerHTML = data[i].name
         item.classList.add("item")
         item.id = `attributeGroup-${data[i].name}`

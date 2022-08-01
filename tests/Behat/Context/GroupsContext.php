@@ -20,8 +20,11 @@ use Sylius\Behat\Page\Admin\Product\UpdateSimpleProductPage as BaseUpdateSimpleP
 use Sylius\Behat\Service\Helper\JavaScriptTestHelperInterface;
 use Sylius\Behat\Service\NotificationChecker;
 use Sylius\Behat\Service\SharedStorageInterface;
+use Sylius\Component\Core\Formatter\StringInflector;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Product\Model\ProductAttribute;
+use Sylius\Component\Product\Model\ProductAttributeTranslation;
 use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Group\CreateGroupPageInterface;
 use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Group\IndexGroupPageInterface;
 use Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Product\UpdateSimpleProductPage;
@@ -158,19 +161,27 @@ final class GroupsContext implements Context
         $group = new Group();
         $group->setName($groupName);
 
-        $attributeCodes = array_merge([], ...$table->getRows());
+        $attributeNames = array_merge([], ...$table->getRows());
 
-        foreach ($attributeCodes as $attributeCode) {
+        foreach ($attributeNames as $attributeName) {
+            $attributeCode = StringInflector::nameToCode($attributeName);
+
+            $attributeTranslation = new ProductAttributeTranslation();
+            $attributeTranslation->setName($attributeName);
+            $attributeTranslation->setLocale('en_US');
+
             $syliusAttribute = new ProductAttribute();
             $syliusAttribute->setCode($attributeCode);
             $syliusAttribute->setType('text');
             $syliusAttribute->setStorageType('text');
-            $syliusAttribute->setTranslatable(false);
+            $syliusAttribute->setTranslatable(true);
+            $syliusAttribute->addTranslation($attributeTranslation);
 
             $attribute = new Attribute();
             $attribute->setGroup($group);
             $attribute->setSyliusAttribute($syliusAttribute);
 
+            $this->entityManager->persist($attributeTranslation);
             $this->entityManager->persist($syliusAttribute);
             $this->entityManager->persist($attribute);
         }
@@ -201,11 +212,58 @@ final class GroupsContext implements Context
     }
 
     /**
-     * @When I want to open attributes tab
+     * @When I open :tab tab
      */
-    public function iTryToAddNewAttributesGroupForProduct()
+    public function iOpenTab(string $tabName)
     {
-        $this->updateSimpleProductPage->addSelectedAttributesGroup();
+        $this->updateSimpleProductPage->openTab($tabName);
+    }
+
+    /**
+     * @When I select attribute group
+     */
+    public function iSelectAttributeGroup()
+    {
+        $this->updateSimpleProductPage->selectAttributeGroup();
+    }
+
+    /**
+     * @When I save product changes
+     */
+    public function iSaveProductChanges()
+    {
+        $this->updateSimpleProductPage->saveChanges();
+    }
+
+    /**
+     * @Then I should be notified that it has been successfully edited
+     */
+    public function iShouldBeNotifiedThatItHasBeenSuccessfullyEdited(): void
+    {
+        $this->testHelper->waitUntilNotificationPopups(
+            $this->notificationChecker,
+            NotificationType::success(),
+            'has been successfully updated.'
+        );
+    }
+
+    /**
+     * @When I set its :attribute attribute to :value
+     * @When I set its :attribute attribute to :value in :language
+     * @When I do not set its :attribute attribute in :language
+     */
+    public function iSetItsAttributeTo($attribute, $value = null, $language = 'en_US')
+    {
+        $this->updateSimpleProductPage->addAttributeValue($attribute, $value ?? '', $language);
+    }
+
+    /**
+     * @Then attribute :attributeName of product :product should be :value
+     * @Then attribute :attributeName of product :product should be :value in :language
+     */
+    public function itsAttributeShouldBe($attributeName, ProductInterface $product, $value, $language = 'en_US')
+    {
+        Assert::same($this->updateSimpleProductPage->getAttributeValue($attributeName, $language), $value);
     }
 
     /**
