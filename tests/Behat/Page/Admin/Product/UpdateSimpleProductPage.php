@@ -14,6 +14,8 @@ class UpdateSimpleProductPage extends UpdatePage
         if (!$attributesTab->hasClass('active')) {
             $attributesTab->click();
         }
+
+        $this->getSession()->wait(1000);
     }
 
     public function selectAttributeGroup(): void
