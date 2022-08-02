@@ -6,7 +6,7 @@ namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Produ
 
 use Sylius\Behat\Page\Admin\Crud\UpdatePage;
 
-class UpdateSimpleProductPage extends UpdatePage
+final class UpdateSimpleProductPage extends UpdatePage
 {
     public function openTab(string $tabName): void
     {
@@ -14,20 +14,16 @@ class UpdateSimpleProductPage extends UpdatePage
         if (!$attributesTab->hasClass('active')) {
             $attributesTab->click();
         }
-
-        $this->getSession()->wait(1000);
     }
 
     public function selectAttributeGroup(): void
     {
         $this->getDocument()->pressButton('Add attribute group');
 
-        $this->getSession()->wait(1000);
-
         $attributesTab = $this->getElement('tab', ['%name%' => 'attribute-group']);
         $attributesTab->click();
 
-        $this->getSession()->wait(1000);
+        $this->waitForElement(5, 'attribute_value');
     }
 
     public function addAttributeValue(string $attributeName, string $value, string $localeCode): void
@@ -60,5 +56,12 @@ class UpdateSimpleProductPage extends UpdatePage
             'attribute_value' => '#attributesContainer [data-test-product-attribute-value-in-locale="%attributeName% %localeCode%"] input',
             'attribute' => '#attributesContainer [data-test-product-attribute-value-in-locale="%attributeName% %localeCode%"] input',
         ]);
+    }
+
+    private function waitForElement(int $timeout, string $elementName): void
+    {
+        $this->getDocument()->waitFor($timeout, function () use ($elementName) {
+            return $this->hasElement($elementName);
+        });
     }
 }
