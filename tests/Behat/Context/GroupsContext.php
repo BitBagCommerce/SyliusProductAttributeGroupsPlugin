@@ -156,7 +156,7 @@ final class GroupsContext implements Context
     /**
      * @Given the store has a product attribute group :groupName with attributes:
      */
-    public function theStoreHasAProductAttributeGroup(string $groupName, TableNode $table)
+    public function theStoreHasAProductAttributeGroup(string $groupName, TableNode $table): void
     {
         $group = new Group();
         $group->setName($groupName);
@@ -214,7 +214,7 @@ final class GroupsContext implements Context
     /**
      * @When I open :tab tab
      */
-    public function iOpenTab(string $tabName)
+    public function iOpenTab(string $tabName): void
     {
         $this->updateSimpleProductPage->openTab($tabName);
     }
@@ -222,7 +222,7 @@ final class GroupsContext implements Context
     /**
      * @When I select attribute group
      */
-    public function iSelectAttributeGroup()
+    public function iSelectAttributeGroup(): void
     {
         $this->updateSimpleProductPage->selectAttributeGroup();
     }
@@ -230,7 +230,7 @@ final class GroupsContext implements Context
     /**
      * @When I save product changes
      */
-    public function iSaveProductChanges()
+    public function iSaveProductChanges(): void
     {
         $this->updateSimpleProductPage->saveChanges();
     }
@@ -252,7 +252,7 @@ final class GroupsContext implements Context
      * @When I set its :attribute attribute to :value in :language
      * @When I do not set its :attribute attribute in :language
      */
-    public function iSetItsAttributeTo($attribute, $value = null, $language = 'en_US')
+    public function iSetItsAttributeTo($attribute, $value = null, $language = 'en_US'): void
     {
         $this->updateSimpleProductPage->addAttributeValue($attribute, $value ?? '', $language);
     }
@@ -261,7 +261,7 @@ final class GroupsContext implements Context
      * @Then attribute :attributeName of product :product should be :value
      * @Then attribute :attributeName of product :product should be :value in :language
      */
-    public function itsAttributeShouldBe($attributeName, ProductInterface $product, $value, $language = 'en_US')
+    public function itsAttributeShouldBe($attributeName, ProductInterface $product, $value, $language = 'en_US'): void
     {
         Assert::same($this->updateSimpleProductPage->getAttributeValue($attributeName, $language), $value);
     }
@@ -269,7 +269,7 @@ final class GroupsContext implements Context
     /**
      * @Then I should see button to add AttributesGroup
      */
-    public function iShouldSeeButtonToAddAttributesGroup()
+    public function iShouldSeeButtonToAddAttributesGroup(): void
     {
         $buttonAddAttributesGroupName = $this->updateSimpleProductPage->getButtonToAddAttributesGroup();
         assertEquals('add_attributes_group', $buttonAddAttributesGroupName);
