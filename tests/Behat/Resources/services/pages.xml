@@ -28,5 +28,11 @@
                  public="true">
             <argument>sylius_admin_product_attribute_update</argument>
         </service>
+        <service id="tests.bit_bag.sylius_product_attribute_groups_plugin.behat.page.product.update"
+                 class="Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Product\UpdateSimpleProductPage"
+                 parent="sylius.behat.page.admin.product_attribute.update"
+                 public="true">
+            <argument>sylius_admin_product_attribute_update</argument>
+        </service>
     </services>
 </container>

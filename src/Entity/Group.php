@@ -61,4 +61,15 @@ class Group implements GroupInterface
             $attribute->setGroup(null);
         }
     }
+
+    public function getAttributeCodes(): array
+    {
+        $attributeCode = [];
+
+        foreach ($this->getAttributes() as $attribute) {
+            $attributeCode[] = $attribute->getSyliusAttribute()->getCode();
+        }
+
+        return $attributeCode;
+    }
 }

@@ -7,5 +7,8 @@ default:
                 - sylius.behat.context.setup.channel
                 - tests.bit_bag.sylius_product_attribute_groups_plugin.behat.context.groups_context
                 - tests.bit_bag.sylius_product_attribute_groups_plugin.behat.context.attribute_context
+                - sylius.behat.context.setup.product_attribute
+                - sylius.behat.context.setup.product
+                - sylius.behat.context.transform.product
             filters:
                 tags: "@product_attribute_group_plugin && @ui"
