@@ -1,9 +1,10 @@
 const path = require('path');
 const Encore = require('@symfony/webpack-encore');
 
-const [bitbagSkeletonShop, bitbagSkeletonAdmin] = require('../../webpack.config.js')
+const [bitbagProductAttributeGroupsShop, bitbagProductAttributeGroupsAdmin] = require('../../webpack.config.js')
 
 const syliusBundles = path.resolve(__dirname, '../../vendor/sylius/sylius/src/Sylius/Bundle/');
+
 const uiBundleScripts = path.resolve(syliusBundles, 'UiBundle/Resources/private/js/');
 const uiBundleResources = path.resolve(syliusBundles, 'UiBundle/Resources/private/');
 
@@ -46,4 +47,4 @@ adminConfig.resolve.alias['sylius/bundle'] = syliusBundles;
 adminConfig.externals = Object.assign({}, adminConfig.externals, { window: 'window', document: 'document' });
 adminConfig.name = 'admin';
 
-module.exports = [shopConfig, adminConfig, bitbagSkeletonShop, bitbagSkeletonAdmin];
+module.exports = [shopConfig, adminConfig, bitbagProductAttributeGroupsShop, bitbagProductAttributeGroupsAdmin];
