@@ -69,7 +69,51 @@ bitbag_product_attribute_groups_plugin:
     resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/routing.yml"
 ```
 
-5. Override product attribute form:
+5. Import plugin's `webpack.config.js` file
+
+```js
+// webpack.config.js
+const [ bitbagProductAttributeGroupsAdmin ] = require('./vendor/bitbag/product-attribute-groups-plugin/webpack.config.js')
+...
+
+module.exports = [..., bitbagProductAttributeGroupsAdmin];
+```
+
+6. Add new packages in `./config/packages/assets.yaml`
+
+```yml
+# config/packages/assets.yaml
+
+framework:
+    assets:
+        packages:
+            # ...
+            product_attribute_groups_admin:
+                json_manifest_path: '%kernel.project_dir%/public/build/bitbag/productAttributeGroups/admin/manifest.json'
+```
+
+7. Add new build paths in `./config/packages/webpack_encore.yml`
+
+```yml
+# config/packages/webpack_encore.yml
+
+webpack_encore:
+    builds:
+        # ...
+        product_attribute_groups_admin: '%kernel.project_dir%/public/build/bitbag/productAttributeGroups/admin'
+```
+
+8. Add encore functions to your templates
+
+```twig
+{# @SyliusAdminBundle/_scripts.html.twig #}
+{{ encore_entry_script_tags('bitbag-productAttributeGroups-admin', null, 'product_attribute_groups_admin') }}
+
+{# @SyliusAdminBundle/_styles.html.twig #}
+{{ encore_entry_link_tags('bitbag-productAttributeGroups-admin', null, 'product_attribute_groups_admin') }}
+```
+
+9. Override forms:
 
 ```
 # templates/bundles/SyliusAdminBundle/ProductAttribute/_form.html.twig
@@ -96,6 +140,28 @@ bitbag_product_attribute_groups_plugin:
     </div>
 {% endif %}
 {{ translationForm(form.translations) }}
+```
+
+```
+# templates/bundles/SyliusAdminBundle/Product/Attribute/attributeChoice.html.twig
+
+<div class="ui fluid action input" id="attributeChoice" data-action="{{ path('sylius_admin_render_attribute_forms') }}" style="margin-bottom: 30px;">
+    {{ form_widget(form, {'attr': {'class': 'ui fluid search dropdown', 'id': 'sylius_product_attribute_choice', 'data-attributes': ''}}) }}
+
+    <button class="ui olive labeled icon floating dropdown button" id="add_attributes_group" data-tab="add_attributes_group" tabindex="0" type="button">
+        <i class="icon clipboard list"></i> <span class="text"> {{ 'bitbag_sylius_product_attribute_group_plugin.ui.attributes_group'|trans }} </span>
+
+        <div id="menuWithAttributesGroup" class="menu transition hidden" data-attribute-groups tabindex="-1"></div>
+    </button>
+
+    <button class="ui green labeled icon button" type="button">
+        <i class="icon plus"></i> {{ 'sylius.ui.add_attributes'|trans }}
+    </button>
+</div>
+
+<script>
+    const urlAttributesGroup = "{{ app.request.schemeAndHttpHost }}/api/v2/shop/shop-attributes-groups"
+</script>
 ```
 
 ## Support
