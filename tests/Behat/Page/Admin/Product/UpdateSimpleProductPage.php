@@ -6,7 +6,7 @@ namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Produ
 
 use Sylius\Behat\Page\Admin\Crud\UpdatePage;
 
-final class UpdateSimpleProductPage extends UpdatePage
+final class UpdateSimpleProductPage extends UpdatePage implements UpdateSimpleProductPageInterface
 {
     public function openTab(string $tabName): void
     {

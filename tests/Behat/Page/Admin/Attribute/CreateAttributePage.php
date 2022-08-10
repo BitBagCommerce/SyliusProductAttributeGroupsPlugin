@@ -6,7 +6,7 @@ namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Attri
 
 use Sylius\Behat\Page\Admin\ProductAttribute\CreatePage;
 
-class CreateAttributePage extends CreatePage implements CreateAttributePageInterface
+final class CreateAttributePage extends CreatePage implements CreateAttributePageInterface
 {
     public function assignGroup(string $group): void
     {
