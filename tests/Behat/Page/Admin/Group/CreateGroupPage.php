@@ -6,7 +6,7 @@ namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Group
 
 use Sylius\Behat\Page\Admin\Crud\CreatePage;
 
-class CreateGroupPage extends CreatePage implements CreateGroupPageInterface
+final class CreateGroupPage extends CreatePage implements CreateGroupPageInterface
 {
     public function fillName(string $name): void
     {

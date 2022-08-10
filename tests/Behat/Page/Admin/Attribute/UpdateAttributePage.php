@@ -6,7 +6,7 @@ namespace Tests\BitBag\SyliusProductAttributeGroupsPlugin\Behat\Page\Admin\Attri
 
 use Sylius\Behat\Page\Admin\ProductAttribute\UpdatePage;
 
-class UpdateAttributePage extends UpdatePage implements UpdateAttributePageInterface
+final class UpdateAttributePage extends UpdatePage implements UpdateAttributePageInterface
 {
     public function isGroupAssigned(string $group): bool
     {
