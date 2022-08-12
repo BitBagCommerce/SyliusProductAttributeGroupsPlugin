@@ -33,6 +33,9 @@
             <collectionOperation name="shop_get-attributes-groups">
                 <attribute name="method">GET</attribute>
                 <attribute name="path">/shop/shop-attributes-groups</attribute>
+                <attribute name="filters">
+                    <attribute>app.api.filter.attribute_group_phrase_filter</attribute>
+                </attribute>
                 <attribute name="normalization_context">
                     <attribute name="groups">shop:group:read</attribute>
                 </attribute>
