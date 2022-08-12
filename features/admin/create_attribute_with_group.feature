@@ -7,8 +7,8 @@ Feature: Create attribute with assigned group
   Background:
     Given I am logged in as an administrator
     And the store operates on a single channel in "United States"
-    And there is created group with name "Custom Group"
-    And there is created group with name "Custom Color Group"
+    And there is created group with "Custom Group" name
+    And there is created group with "Custom Color Group" name
 
   @ui
   Scenario: Create attribute with assigned group

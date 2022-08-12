@@ -28,6 +28,6 @@ Feature: Create attribute group
     And I add it
     Then I should be notified that the group has been created
     And the group "Attribute Group with attributes" should appear in the store
-    And these attributes should be visible next to the group "Attribute Group with attributes":
+    And these attributes should be visible next to the "Attribute Group with attributes" group:
       | Custom Color Attribute  |
       | Custom Length Attribute |

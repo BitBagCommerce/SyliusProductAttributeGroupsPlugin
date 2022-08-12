@@ -74,7 +74,7 @@ final class GroupsContext implements Context
     }
 
     /**
-     * @Given these attributes should be visible next to the group :group:
+     * @Given these attributes should be visible next to the :group group:
      */
     public function thisAttributesShouldBeVisibleNextToTheGroup(string $group, TableNode $table): void
     {
@@ -138,7 +138,7 @@ final class GroupsContext implements Context
     }
 
     /**
-     * @Given there is created group with name :group
+     * @Given there is created group with :group name
      */
     public function thereIsCreatedGroupWithName(string $group): void
     {
@@ -181,11 +181,6 @@ final class GroupsContext implements Context
         $product = $this->productRepository->findOneByCode($productName);
 
         $this->sharedStorage->set('product', $product);
-        if ($product->isSimple()) {
-            $this->testHelper->waitUntilPageOpens($this->baseUpdateSimpleProductPage, ['id' => $product->getId()]);
-
-            return;
-        }
 
         $this->testHelper->waitUntilPageOpens($this->baseUpdateSimpleProductPage, ['id' => $product->getId()]);
     }
