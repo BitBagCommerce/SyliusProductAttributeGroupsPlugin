@@ -71,15 +71,6 @@ final class GroupsContext implements Context
     }
 
     /**
-     * @Then I should see button to add AttributesGroup
-     */
-    public function iShouldSeeButtonToAddAttributesGroup(): void
-    {
-        $buttonAddAttributesGroupName = $this->updateSimpleProductPage->getButtonToAddAttributesGroup();
-        assertEquals('add_attributes_group', $buttonAddAttributesGroupName);
-    }
-
-    /**
      * @Given these attributes should be visible next to the :group group:
      */
     public function thisAttributesShouldBeVisibleNextToTheGroup(string $group, TableNode $table): void
