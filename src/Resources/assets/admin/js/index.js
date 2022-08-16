@@ -1,1 +1,1 @@
-import './attributeGroups'
+import './handleAttributeGroups';
