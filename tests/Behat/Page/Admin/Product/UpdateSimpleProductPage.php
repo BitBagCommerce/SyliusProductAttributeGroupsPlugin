@@ -24,7 +24,9 @@ final class UpdateSimpleProductPage extends UpdatePage implements UpdateSimplePr
 
     public function selectAttributeGroup(): void
     {
-        $this->getDocument()->pressButton('Add attribute group');
+        $this->getElement('attributes_group_button')->click();
+
+        $this->waitForElement(5, 'tab', ['%name%' => 'attribute-group']);
 
         $attributesTab = $this->getElement('tab', ['%name%' => 'attribute-group']);
         $attributesTab->click();
@@ -40,6 +42,13 @@ final class UpdateSimpleProductPage extends UpdatePage implements UpdateSimplePr
     public function saveChanges(): void
     {
         $this->getDocument()->pressButton('sylius_save_changes_button');
+    }
+
+    public function pressAddAttributeButton(): void
+    {
+        $this->getDocument()->pressButton('Add attributes');
+
+        $this->waitForElement(4, 'attribute_value');
     }
 
     public function getAttributeValue(string $attribute, string $localeCode): string
@@ -61,13 +70,14 @@ final class UpdateSimpleProductPage extends UpdatePage implements UpdateSimplePr
             'tab' => '.menu [data-tab="%name%"]',
             'attribute_value' => '#attributesContainer [data-test-product-attribute-value-in-locale="%attributeName% %localeCode%"] input',
             'attribute' => '#attributesContainer [data-test-product-attribute-value-in-locale="%attributeName% %localeCode%"] input',
+            'attributes_group_button' => '#add_attributes_group',
         ]);
     }
 
-    private function waitForElement(int $timeout, string $elementName): void
+    private function waitForElement(int $timeout, string $elementName, array $parameters = []): void
     {
-        $this->getDocument()->waitFor($timeout, function () use ($elementName) {
-            return $this->hasElement($elementName);
+        $this->getDocument()->waitFor($timeout, function () use ($elementName, $parameters) {
+            return $this->hasElement($elementName, $parameters);
         });
     }
 }

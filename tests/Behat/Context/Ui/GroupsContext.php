@@ -71,6 +71,14 @@ final class GroupsContext implements Context
     }
 
     /**
+     * @When I press the "Add attributes" button
+     */
+    public function iPressAddAttributeButton(): void
+    {
+        $this->updateSimpleProductPage->pressAddAttributeButton();
+    }
+
+    /**
      * @Given these attributes should be visible next to the :group group:
      */
     public function thisAttributesShouldBeVisibleNextToTheGroup(string $group, TableNode $table): void
