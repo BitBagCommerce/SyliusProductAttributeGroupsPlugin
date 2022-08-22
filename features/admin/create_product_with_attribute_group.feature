@@ -17,6 +17,7 @@ Feature: Create attribute group
     When I want to modify the "44_Magnum" product
     And I open "attributes" tab
     And I select attribute group
+    And I press the "Add attributes" button
     And I set its "Custom length attribute" attribute to "short"
     And I set its "Custom color attribute" attribute to "red"
     And I save product changes

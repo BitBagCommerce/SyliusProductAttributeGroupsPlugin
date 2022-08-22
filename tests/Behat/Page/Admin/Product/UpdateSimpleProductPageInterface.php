@@ -22,6 +22,8 @@ interface UpdateSimpleProductPageInterface extends UpdatePageInterface
 
     public function saveChanges(): void;
 
+    public function pressAddAttributeButton(): void;
+
     public function getAttributeValue(string $attribute, string $localeCode): string;
 
     public function getButtonToAddAttributesGroup(): string;
