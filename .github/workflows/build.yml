@@ -24,12 +24,13 @@ jobs:
                 symfony: ["^5.4", "^6.0"]
                 sylius: ["~1.11.0", "~1.12.0"]
                 node: ["^14.17.x"]
-                mysql: [ "8.0" ]
+                mysql: [ "5.7", "8.0" ]
 
                 exclude:
                     - # Segmentation fault while clearing cache
                       php: 8.0
                       mysql: 5.7
+
                     - sylius: ~1.11.0
                       symfony: ^6.0
 
