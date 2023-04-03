@@ -8,12 +8,12 @@ on:
     release:
         types: [ created ]
     schedule:
-        -   cron: "0 1 * * 6" # Run at 1am every Saturday
+        - cron: "0 1 * * 6" # Run at 1am every Saturday
     workflow_dispatch: ~
 
 jobs:
     tests:
-        runs-on: ubuntu-18.04
+        runs-on: ubuntu-20.04
 
         name: "Sylius ${{ matrix.sylius }}, PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}, MySQL ${{ matrix.mysql }}"
 
@@ -27,6 +27,9 @@ jobs:
                 mysql: [ "8.0" ]
 
                 exclude:
+                    - # Segmentation fault while clearing cache
+                      php: 8.0
+                      mysql: 5.7
                     - sylius: ~1.11.0
                       symfony: ^6.0
 
@@ -108,10 +111,6 @@ jobs:
                     key: ${{ runner.os }}-node-${{ matrix.node }}-yarn-${{ hashFiles('**/package.json **/yarn.lock') }}
                     restore-keys: |
                         ${{ runner.os }}-node-${{ matrix.node }}-yarn-
-
-            - name: Copy package.json.dist to package.json
-              if: matrix.sylius != ''
-              run: (cd tests/Application && cp package.json.\${{ matrix.sylius }}.dist package.json)
 
             -   name: Install JS dependencies
                 run: (cd tests/Application && yarn install)
