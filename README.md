@@ -111,6 +111,12 @@ webpack_encore:
 
 {# @SyliusAdminBundle/_styles.html.twig #}
 {{ encore_entry_link_tags('bitbag-productAttributeGroups-admin', null, 'product_attribute_groups_admin') }}
+
+{# @SyliusShopBundle/_scripts.html.twig #}
+{{ encore_entry_script_tags('bitbag-productAttributeGroups-shop', null, 'product_attribute_groups_shop') }}
+
+{# @SyliusShopBundle/_styles.html.twig #}
+{{ encore_entry_link_tags('bitbag-productAttributeGroups-shop', null, 'product_attribute_groups_shop') }}
 ```
 
 9. Override forms:
