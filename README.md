@@ -20,6 +20,7 @@ our [academy](https://bitbag.io/pl/akademia?utm_source=github&utm_medium=url&utm
 
 ***
 
+* [Overview](#overview)
 * [Installation](#installation)
 * [Support](#support)
 * [About us](#about-us)
@@ -27,6 +28,12 @@ our [academy](https://bitbag.io/pl/akademia?utm_source=github&utm_medium=url&utm
 * [Demo Sylius Shop](#demo-sylius-shop)
 * [License](#license)
 * [Contact](#contact)
+
+# Overview
+
+***
+
+In some e-commerce cases there is a need for grouping product attributes together. The SyliusProductAttributeGroupsPlugin allows you to group your attributes and attach them grouped to the products.
 
 ## Installation
 
