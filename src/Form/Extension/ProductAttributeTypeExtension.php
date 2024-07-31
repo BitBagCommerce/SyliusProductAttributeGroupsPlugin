@@ -15,6 +15,7 @@ use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute;
 use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group;
 use BitBag\SyliusProductAttributeGroupsPlugin\Factory\AttributeFactoryInterface;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductAttributeType;
+use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractTypeExtension;
@@ -78,6 +79,7 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
             $previousGroups = $this->attributeRepository->findBy(['syliusAttribute' => $event->getData()]);
 
             if (0 !== count($previousGroups)) {
+                /** @var ResourceInterface $previousGroup */
                 foreach ($previousGroups as $previousGroup) {
                     $this->attributeRepository->remove($previousGroup);
                 }
