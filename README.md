@@ -42,7 +42,7 @@ In some e-commerce cases there is a need for grouping product attributes togethe
 1. *We work on stable, supported and up-to-date versions of packages. We recommend you to do the same.*
 
 ```bash
-$ composer install bitbag/product-attribute-groups-plugin
+composer require bitbag/product-attribute-groups-plugin --no-scripts
 ```
 
 2. Add plugin dependencies to your `config/bundles.php` file:
@@ -76,7 +76,26 @@ bitbag_product_attribute_groups_plugin:
     resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/routing.yml"
 ```
 
-5. Import plugin's `webpack.config.js` file
+5. Please clear the cache:
+
+```bash
+bin/console cache:clear
+```
+
+6. Please update your database by running:
+
+```bash
+bin/console doctrine:migrations:diff
+bin/console doctrine:migrations:migrate # Please review the file and changes before running the command!
+```
+
+Or by using schema tool:
+
+```bash
+bin/console doctrine:schema:update --dump-sql # Please use --force switch when you're done which checking the db changes.
+```
+
+7. Import plugin's `webpack.config.js` file
 
 ```js
 // webpack.config.js
@@ -86,7 +105,7 @@ const [ bitbagProductAttributeGroupsAdmin ] = require('./vendor/bitbag/product-a
 module.exports = [..., bitbagProductAttributeGroupsAdmin];
 ```
 
-6. Add new packages in `./config/packages/assets.yaml`
+8. Add new packages in `./config/packages/assets.yaml`
 
 ```yml
 # config/packages/assets.yaml
@@ -99,7 +118,7 @@ framework:
                 json_manifest_path: '%kernel.project_dir%/public/build/bitbag/productAttributeGroups/admin/manifest.json'
 ```
 
-7. Add new build paths in `./config/packages/webpack_encore.yml`
+9. Add new build paths in `./config/packages/webpack_encore.yml`
 
 ```yml
 # config/packages/webpack_encore.yml
@@ -110,7 +129,7 @@ webpack_encore:
         product_attribute_groups_admin: '%kernel.project_dir%/public/build/bitbag/productAttributeGroups/admin'
 ```
 
-8. Add encore functions to your templates
+10. Add encore functions to your templates
 
 ```twig
 {# @SyliusAdminBundle/_scripts.html.twig #}
@@ -126,7 +145,7 @@ webpack_encore:
 {{ encore_entry_link_tags('bitbag-productAttributeGroups-shop', null, 'product_attribute_groups_shop') }}
 ```
 
-9. Override forms:
+11. Override forms:
 
 ```
 # templates/bundles/SyliusAdminBundle/ProductAttribute/_form.html.twig
