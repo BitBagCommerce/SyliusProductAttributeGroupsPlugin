@@ -1,10 +1,11 @@
 <?php
 
 /*
- * This file was created by developers working at BitBag
- * Do you need more information about us and what we do? Visit our https://bitbag.io website!
- * We are hiring developers from all over the world. Join us and start your new, exciting adventure and become part of us: https://bitbag.io/career
-*/
+ * This file has been created by developers from BitBag.
+ * Feel free to contact us once you face any issues or want to start
+ * You can find more information about us on https://bitbag.io and write us
+ * an email on hello@bitbag.io.
+ */
 
 declare(strict_types=1);
 
@@ -14,6 +15,7 @@ use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Attribute;
 use BitBag\SyliusProductAttributeGroupsPlugin\Entity\Group;
 use BitBag\SyliusProductAttributeGroupsPlugin\Factory\AttributeFactoryInterface;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductAttributeType;
+use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractTypeExtension;
@@ -29,7 +31,7 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
 
     public function __construct(
         RepositoryInterface $attributeRepository,
-        AttributeFactoryInterface $attributeFactory
+        AttributeFactoryInterface $attributeFactory,
     ) {
         $this->attributeRepository = $attributeRepository;
         $this->attributeFactory = $attributeFactory;
@@ -77,6 +79,7 @@ final class ProductAttributeTypeExtension extends AbstractTypeExtension
             $previousGroups = $this->attributeRepository->findBy(['syliusAttribute' => $event->getData()]);
 
             if (0 !== count($previousGroups)) {
+                /** @var ResourceInterface $previousGroup */
                 foreach ($previousGroups as $previousGroup) {
                     $this->attributeRepository->remove($previousGroup);
                 }
