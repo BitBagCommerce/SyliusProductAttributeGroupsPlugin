@@ -21,6 +21,7 @@ our [academy](https://bitbag.io/pl/akademia?utm_source=github&utm_medium=url&utm
 ***
 
 * [Overview](#overview)
+* [Functionalities](doc/functionalities.md)
 * [Installation](#installation)
 * [Support](#support)
 * [About us](#about-us)
