@@ -38,164 +38,23 @@ In some e-commerce cases there is a need for grouping product attributes togethe
 
 ## Installation
 
+---
+### Requirements
+
+We work on stable, supported and up-to-date versions of packages. We recommend you to do the same.
+
+| Package       | Version         |
+|---------------|-----------------|
+| PHP           | \>=8.0          |
+| sylius/sylius | 1.12.x - 1.13.x |
+| MySQL         | \>= 5.7         |
+| NodeJS        | \>= 18.x        |
+
 ----
 
-1. *We work on stable, supported and up-to-date versions of packages. We recommend you to do the same.*
+### Full installation guide
+- [See the full installation guide](doc/installation.md)
 
-```bash
-composer require bitbag/product-attribute-groups-plugin --no-scripts
-```
-
-2. Add plugin dependencies to your `config/bundles.php` file:
-
-```php
-return [
-    ...
-
-    BitBag\SyliusProductAttributeGroupsPlugin\BitBagSyliusProductAttributeGroupsPlugin::class => ['all' => true],
-];
-```
-
-3. Import required config in your `config/packages/_sylius.yaml` file:
-
-```yaml
-# config/packages/_sylius.yaml
-
-imports:
-    ...
-
-    - { resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/config.yml" }
-```
-
-4. Add required routes:
-
-```yaml
-# config/routes.yaml
-...
-
-bitbag_product_attribute_groups_plugin:
-    resource: "@BitBagSyliusProductAttributeGroupsPlugin/Resources/config/routing.yml"
-```
-
-5. Please clear the cache:
-
-```bash
-bin/console cache:clear
-```
-
-6. Please update your database by running:
-
-```bash
-bin/console doctrine:migrations:diff
-bin/console doctrine:migrations:migrate # Please review the file and changes before running the command!
-```
-
-Or by using schema tool:
-
-```bash
-bin/console doctrine:schema:update --dump-sql # Please use --force switch when you're done which checking the db changes.
-```
-
-7. Import plugin's `webpack.config.js` file
-
-```js
-// webpack.config.js
-const [ bitbagProductAttributeGroupsAdmin ] = require('./vendor/bitbag/product-attribute-groups-plugin/webpack.config.js')
-...
-
-module.exports = [..., bitbagProductAttributeGroupsAdmin];
-```
-
-8. Add new packages in `./config/packages/assets.yaml`
-
-```yml
-# config/packages/assets.yaml
-
-framework:
-    assets:
-        packages:
-            # ...
-            product_attribute_groups_admin:
-                json_manifest_path: '%kernel.project_dir%/public/build/bitbag/productAttributeGroups/admin/manifest.json'
-```
-
-9. Add new build paths in `./config/packages/webpack_encore.yml`
-
-```yml
-# config/packages/webpack_encore.yml
-
-webpack_encore:
-    builds:
-        # ...
-        product_attribute_groups_admin: '%kernel.project_dir%/public/build/bitbag/productAttributeGroups/admin'
-```
-
-10. Add encore functions to your templates
-
-```twig
-{# @SyliusAdminBundle/_scripts.html.twig #}
-{{ encore_entry_script_tags('bitbag-productAttributeGroups-admin', null, 'product_attribute_groups_admin') }}
-
-{# @SyliusAdminBundle/_styles.html.twig #}
-{{ encore_entry_link_tags('bitbag-productAttributeGroups-admin', null, 'product_attribute_groups_admin') }}
-
-{# @SyliusShopBundle/_scripts.html.twig #}
-{{ encore_entry_script_tags('bitbag-productAttributeGroups-shop', null, 'product_attribute_groups_shop') }}
-
-{# @SyliusShopBundle/_styles.html.twig #}
-{{ encore_entry_link_tags('bitbag-productAttributeGroups-shop', null, 'product_attribute_groups_shop') }}
-```
-
-11. Override forms:
-
-```
-# templates/bundles/SyliusAdminBundle/ProductAttribute/_form.html.twig
-
-{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
-
-{{ form_errors(form) }}
-
-<div class="ui segment">
-    <div class="four fields">
-        {{ form_row(form.code) }}
-        {{ form_row(form.position) }}
-        {{ form_row(form.type) }}
-        {{ form_row(form.groups) }}
-    </div>
-    {{ form_row(form.translatable) }}
-</div>
-{% if form.configuration is defined %}
-    <div class="ui segment">
-        <h4 class="ui dividing header">{{ 'sylius.ui.configuration'|trans }}</h4>
-        {% for field in form.configuration %}
-            {{ form_row(field) }}
-        {% endfor %}
-    </div>
-{% endif %}
-{{ translationForm(form.translations) }}
-```
-
-```
-# templates/bundles/SyliusAdminBundle/Product/Attribute/attributeChoice.html.twig
-
-<div class="ui fluid action input" id="attributeChoice" data-action="{{ path('sylius_admin_render_attribute_forms') }}" style="margin-bottom: 30px;">
-    {{ form_widget(form, {'attr': {'class': 'ui fluid search dropdown', 'id': 'sylius_product_attribute_choice', 'data-attributes': ''}}) }}
-
-    <button class="ui olive labeled icon floating dropdown button" id="add_attributes_group" data-tab="add_attributes_group" tabindex="0" type="button">
-        <i class="icon clipboard list"></i> <span class="text"> {{ 'bitbag_sylius_product_attribute_group_plugin.ui.attributes_group'|trans }} </span>
-
-        <div id="menuWithAttributesGroup" class="menu transition hidden" data-attribute-groups tabindex="-1"></div>
-    </button>
-
-    <button class="ui green labeled icon button" type="button">
-        <i class="icon plus"></i> {{ 'sylius.ui.add_attributes'|trans }}
-    </button>
-</div>
-
-<script>
-    const urlAttributesGroup = "{{ app.request.schemeAndHttpHost }}/api/v2/shop/shop-attributes-groups"
-</script>
-```
 
 ## Support
 
